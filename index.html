@@ -6,65 +6,186 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="STREETHYPE — магазин стильной уличной одежды и аксессуаров. Футболки, худи, лонгсливы и товары для дома. Доставка по России.">
-    <meta name="keywords" content="streetwear, уличная одежда, худи, футболки, российский бренд">
-    <title>STREETHYPE — магазин уличной одежды и аксессуаров</title>
+    <meta name="keywords" content="streetwear, уличная одежда, худи, футболки, российский бренд, cyberpunk fashion">
+    <title>STREETHYPE — GLOBAL TERMINAL</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* HERO SLIDER REDESIGN */
+        .hero {
+            position: relative;
+            height: 90vh;
+            overflow: hidden;
+            background: #000;
+            border-bottom: 2px solid var(--accent-lime);
+        }
+
+        .hero__content {
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: var(--space-xl);
+            border: 1px solid var(--accent-lime);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(200, 255, 0, 0.1);
+        }
+
+        .hero__title {
+            font-family: var(--font-display);
+            font-size: 4.5rem;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(200, 255, 0, 0.5);
+            margin-bottom: var(--space-md);
+            letter-spacing: 4px;
+        }
+
+        .hero__subtitle {
+            font-family: 'Courier New', monospace;
+            color: var(--accent-lime);
+            font-size: 1.2rem;
+            margin-bottom: var(--space-lg);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* SECTION HEADERS */
+        .section__title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .section__title--accent {
+            color: var(--accent-lime);
+            text-shadow: 0 0 15px rgba(200, 255, 0, 0.3);
+        }
+
+        .section__title--red {
+            color: #ff2a6d;
+            text-shadow: 0 0 15px rgba(255, 42, 109, 0.3);
+        }
+
+        .section__link {
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s;
+        }
+
+        .section__link:hover {
+            color: var(--accent-lime);
+            text-shadow: 0 0 8px var(--accent-lime);
+        }
+
+        /* HOME SPECIFIC OVERRIDES */
+        body {
+            background-color: #050505;
+            color: #eee;
+        }
+
+        .special-offer {
+            background: #000;
+            border: 1px solid var(--accent-lime);
+            box-shadow: 0 0 20px rgba(200, 255, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-offer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-lime);
+            animation: scanline 3s infinite linear;
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(300px);
+            }
+        }
+
+        .special-offer__tag {
+            background: var(--accent-lime);
+            color: #000;
+            font-family: var(--font-display);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .special-offer__title {
+            font-family: var(--font-display);
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Sale Ticker -->
-    <div class="sale-ticker">
-        <div class="sale-ticker__track">
-            <span class="sale-ticker__item">🔥 SALE — Скидки до 50% <a href="catalog.html?sale=true">Перейти к
-                    распродаже →</a></span>
-            <span class="sale-ticker__item">✨ Бесплатная доставка от 5 000 ₽</span>
-            <span class="sale-ticker__item">🔥 SALE — Скидки до 50% <a href="catalog.html?sale=true">Перейти к
-                    распродаже →</a></span>
-            <span class="sale-ticker__item">✨ Бесплатная доставка от 5 000 ₽</span>
-            <span class="sale-ticker__item">🔥 SALE — Скидки до 50% <a href="catalog.html?sale=true">Перейти к
-                    распродаже →</a></span>
-            <span class="sale-ticker__item">✨ Бесплатная доставка от 5 000 ₽</span>
+    <!-- 1. Data Stream Ticker (Replaces Old Sale Ticker) -->
+    <div class="test-banner"
+        style="background:var(--accent-lime); color:#000; font-family:var(--font-display); text-align:center; padding:5px; font-weight:bold;">
+        CYBERPUNK MODE: ACTIVATED
+    </div>
+
+    <div class="data-stream"
+        style="background: #000; border-bottom: 1px solid var(--accent-lime); height: 30px; display: flex; align-items: center; overflow: hidden; white-space: nowrap; font-family: 'Courier New', monospace; font-size: 0.8rem; letter-spacing: 1px; color: var(--accent-lime);">
+        <div class="data-stream__track" style="animation: ticker 20s linear infinite; display: inline-block;">
+            <span class="data-stream__item" style="margin-right: 50px;">SYSTEM_STATUS: <span
+                    style="color:#fff;">ONLINE</span></span>
+            <span class="data-stream__item" style="margin-right: 50px;">NEW_DROP_DETECTED: <span
+                    style="color:#fff;">NEON_VANGUARD</span> // <a href="catalog.html?collection=limited"
+                    style="color:#fff; text-decoration:underline;">ACCESS_NOW</a></span>
+            <span class="data-stream__item" style="margin-right: 50px;">FREE_SHIPPING_THRESHOLD: <span
+                    style="color:#fff;">5000RUB</span></span>
+            <span class="data-stream__item" style="margin-right: 50px;">SYSTEM_STATUS: <span
+                    style="color:#fff;">ONLINE</span></span>
+            <span class="data-stream__item" style="margin-right: 50px;">NEW_DROP_DETECTED: <span
+                    style="color:#fff;">NEON_VANGUARD</span> // <a href="catalog.html?collection=limited"
+                    style="color:#fff; text-decoration:underline;">ACCESS_NOW</a></span>
         </div>
     </div>
 
     <!-- Header -->
     <header class="header">
         <div class="container header__inner">
-            <a href="index.html" class="header__logo">STREETHYPE</a>
-
+            <a href="collections.html" class="header__logo">STREETHYPE</a>
             <nav class="header__nav">
                 <a href="catalog.html" class="header__nav-link">Каталог</a>
                 <a href="collections.html" class="header__nav-link">Коллекции</a>
                 <a href="lookbook.html" class="header__nav-link">Lookbook</a>
-                <a href="catalog.html?category=certificates" class="header__nav-link">Сертификаты</a>
+                <a href="certificates.html" class="header__nav-link">Сертификаты</a>
                 <a href="about.html" class="header__nav-link">Инфо</a>
             </nav>
-
             <div class="header__actions">
-                <a href="#cart" class="header__cart" id="cartBtn">
+                <a href="#" class="header__cart" id="cartBtn">
                     <div class="header__cart-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <path d="M16 10a4 4 0 01-8 0"></path>
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 01-8 0" />
                         </svg>
                         <span class="header__cart-count" id="cartCount">0</span>
                     </div>
-                    <span>Корзина</span>
                 </a>
-
-                <button class="header__burger" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                <button class="header__burger" id="menuToggle"><span></span><span></span><span></span></button>
             </div>
         </div>
     </header>
 
-    <!-- Mobile Navigation -->
+    <!-- Mobile Mobile Nav -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <nav class="mobile-nav" id="mobileNav">
         <button class="mobile-nav__close" id="mobileNavClose">
@@ -77,10 +198,8 @@
             <a href="catalog.html" class="mobile-nav__link">Каталог</a>
             <a href="collections.html" class="mobile-nav__link">Коллекции</a>
             <a href="lookbook.html" class="mobile-nav__link">Lookbook</a>
-            <a href="catalog.html?category=certificates" class="mobile-nav__link">Сертификаты</a>
+            <a href="certificates.html" class="mobile-nav__link">Сертификаты</a>
             <a href="about.html" class="mobile-nav__link">О бренде</a>
-            <a href="delivery.html" class="mobile-nav__link">Доставка и оплата</a>
-            <a href="contacts.html" class="mobile-nav__link">Контакты</a>
         </div>
     </nav>
 
@@ -88,37 +207,36 @@
     <section class="hero" id="heroSlider">
         <div class="hero__slides">
             <div class="hero__slide active">
+                <!-- Using original images, overlay handled by CSS in style.css or above -->
+                <div
+                    style="position:absolute; inset:0; background: linear-gradient(0deg, #000 0%, transparent 50%); z-index:2;">
+                </div>
                 <img src="images/hero_slide_1_1769257924734.png" alt="Коллекция уличной одежды"
-                    class="hero__slide-image">
+                    class="hero__slide-image" style="opacity: 0.7;">
             </div>
             <div class="hero__slide">
+                <div
+                    style="position:absolute; inset:0; background: linear-gradient(0deg, #000 0%, transparent 50%); z-index:2;">
+                </div>
                 <img src="images/hero_slide_2_1769257938762.png" alt="Новая коллекция streetwear"
-                    class="hero__slide-image">
+                    class="hero__slide-image" style="opacity: 0.7;">
             </div>
             <div class="hero__slide">
-                <img src="images/hero_slide_3_1769257952676.png" alt="Streetwear стиль" class="hero__slide-image">
+                <div
+                    style="position:absolute; inset:0; background: linear-gradient(0deg, #000 0%, transparent 50%); z-index:2;">
+                </div>
+                <img src="images/hero_slide_3_1769257952676.png" alt="Streetwear стиль" class="hero__slide-image"
+                    style="opacity: 0.7;">
             </div>
         </div>
 
         <div class="hero__content">
-            <h1 class="hero__title">Новая коллекция</h1>
-            <p class="hero__subtitle">Уличная одежда для тех, кто создаёт тренды</p>
-            <a href="catalog.html" class="btn btn--primary">Смотреть коллекцию</a>
+            <h1 class="hero__title">NEON <span style="color:var(--accent-lime)">GENESIS</span></h1>
+            <p class="hero__subtitle">UPGRADE YOUR AESTHETIC_</p>
+            <a href="catalog.html" class="btn btn--primary">ЗАПУСТИТЬ КАТАЛОГ</a>
         </div>
 
-        <div class="hero__arrows">
-            <button class="hero__arrow hero__arrow--prev" id="heroPrev">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-            </button>
-            <button class="hero__arrow hero__arrow--next" id="heroNext">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-            </button>
-        </div>
-
+        <!-- Dots/Arrows preserved just styled differently via global CSS -->
         <div class="hero__controls">
             <button class="hero__dot active" data-slide="0"></button>
             <button class="hero__dot" data-slide="1"></button>
@@ -130,77 +248,73 @@
     <section class="section" id="newDrop">
         <div class="container">
             <div class="section__header">
-                <h2 class="section__title section__title--accent">NEW DROP</h2>
-                <a href="catalog.html?tag=new" class="section__link">
-                    Смотреть всё
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </a>
+                <h2 class="section__title section__title--accent">NEW <span style="color:#fff">DROP</span></h2>
+                <a href="catalog.html?tag=new" class="section__link">VIEW_ALL_SYSTEMS -></a>
             </div>
 
             <div class="product-grid">
+                <!-- Items with Updated Styling handled by style.css .product-card -->
                 <article class="product-card" data-id="1">
                     <div class="product-card__image-wrapper">
-                        <img src="images/product_tshirt_1_1769257974154.png" alt="Футболка Abstract"
+                        <img src="images/product_tshirt_1_1769257974154.png" alt="Abstract Tee"
                             class="product-card__image">
-                        <span class="product-card__badge product-card__badge--new">New Drop</span>
+                        <span class="product-card__badge product-card__badge--new"
+                            style="background:var(--accent-lime); color:#000;">NEW_ARRIVAL</span>
                         <div class="product-card__quick-view">
-                            <button class="btn btn--primary btn--small" onclick="addToCart(1)">В корзину</button>
+                            <button class="btn btn--primary btn--small" onclick="addToCart(1)">ADD_TO_CACHE</button>
                         </div>
                     </div>
                     <div class="product-card__content">
-                        <h3 class="product-card__title">Футболка «Abstract»</h3>
-                        <div class="product-card__price">3 200 ₽</div>
-                        <p class="product-card__variants">Размеры: S, M, L, XL</p>
+                        <h3 class="product-card__title">T-Shirt "Abstract"</h3>
+                        <div class="product-card__price">3 200 RUB</div>
+                        <p class="product-card__variants">SIZE: S, M, L, XL</p>
                     </div>
                 </article>
 
                 <article class="product-card" data-id="2">
                     <div class="product-card__image-wrapper">
-                        <img src="images/product_tshirt_2_1769257991862.png" alt="Футболка Typography"
+                        <img src="images/product_tshirt_2_1769257991862.png" alt="Typography Tee"
                             class="product-card__image">
-                        <span class="product-card__badge product-card__badge--new">New Drop</span>
+                        <span class="product-card__badge product-card__badge--new"
+                            style="background:var(--accent-lime); color:#000;">NEW_ARRIVAL</span>
                         <div class="product-card__quick-view">
-                            <button class="btn btn--primary btn--small" onclick="addToCart(2)">В корзину</button>
+                            <button class="btn btn--primary btn--small" onclick="addToCart(2)">ADD_TO_CACHE</button>
                         </div>
                     </div>
                     <div class="product-card__content">
-                        <h3 class="product-card__title">Футболка «Typography»</h3>
-                        <div class="product-card__price">3 200 ₽</div>
-                        <p class="product-card__variants">Размеры: S, M, L, XL</p>
+                        <h3 class="product-card__title">T-Shirt "Typography"</h3>
+                        <div class="product-card__price">3 200 RUB</div>
+                        <p class="product-card__variants">SIZE: S, M, L, XL</p>
                     </div>
                 </article>
 
                 <article class="product-card" data-id="3">
                     <div class="product-card__image-wrapper">
-                        <img src="images/product_longsleeve_1_1769258004454.png" alt="Лонгслив Minimal"
+                        <img src="images/product_longsleeve_1_1769258004454.png" alt="Minimal LS"
                             class="product-card__image">
-                        <span class="product-card__badge product-card__badge--new">New Drop</span>
                         <div class="product-card__quick-view">
-                            <button class="btn btn--primary btn--small" onclick="addToCart(3)">В корзину</button>
+                            <button class="btn btn--primary btn--small" onclick="addToCart(3)">ADD_TO_CACHE</button>
                         </div>
                     </div>
                     <div class="product-card__content">
-                        <h3 class="product-card__title">Лонгслив «Minimal»</h3>
-                        <div class="product-card__price">4 000 ₽</div>
-                        <p class="product-card__variants">Размеры: S, M, L, XL</p>
+                        <h3 class="product-card__title">Longsleeve "Minimal"</h3>
+                        <div class="product-card__price">4 000 RUB</div>
+                        <p class="product-card__variants">SIZE: S, M, L, XL</p>
                     </div>
                 </article>
 
                 <article class="product-card" data-id="4">
                     <div class="product-card__image-wrapper">
-                        <img src="images/product_longsleeve_2_1769258018680.png" alt="Лонгслив Vintage"
+                        <img src="images/product_longsleeve_2_1769258018680.png" alt="Vintage LS"
                             class="product-card__image">
-                        <span class="product-card__badge product-card__badge--new">New Drop</span>
                         <div class="product-card__quick-view">
-                            <button class="btn btn--primary btn--small" onclick="addToCart(4)">В корзину</button>
+                            <button class="btn btn--primary btn--small" onclick="addToCart(4)">ADD_TO_CACHE</button>
                         </div>
                     </div>
                     <div class="product-card__content">
-                        <h3 class="product-card__title">Лонгслив «Vintage»</h3>
-                        <div class="product-card__price">4 000 ₽</div>
-                        <p class="product-card__variants">Размеры: S, M, L, XL</p>
+                        <h3 class="product-card__title">Longsleeve "Vintage"</h3>
+                        <div class="product-card__price">4 000 RUB</div>
+                        <p class="product-card__variants">SIZE: S, M, L, XL</p>
                     </div>
                 </article>
             </div>
@@ -208,238 +322,45 @@
     </section>
 
     <!-- LIMITED Section -->
-    <section class="section" style="background: var(--bg-secondary);" id="limited">
+    <section class="section" style="background: #0a0a0a; border-top: 1px solid rgba(255,255,255,0.1);" id="limited">
         <div class="container">
             <div class="section__header">
-                <h2 class="section__title section__title--red">LIMITED</h2>
-                <a href="catalog.html?tag=limited" class="section__link">
-                    Смотреть всё
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </a>
+                <h2 class="section__title section__title--red">LIMITED <span style="color:#fff">EDITION</span></h2>
+                <a href="catalog.html?tag=limited" class="section__link">RESTRICTED_ACCESS -></a>
             </div>
 
             <div class="product-grid">
                 <article class="product-card" data-id="5">
                     <div class="product-card__image-wrapper">
-                        <img src="images/product_hoodie_1_1769258041855.png" alt="Зип худи Street"
+                        <img src="images/product_hoodie_1_1769258041855.png" alt="Street Hoodie"
                             class="product-card__image">
-                        <span class="product-card__badge product-card__badge--limited">Limited</span>
+                        <span class="product-card__badge" style="background:#ff2a6d; color:#fff;">LIMITED</span>
                         <div class="product-card__quick-view">
-                            <button class="btn btn--red btn--small" onclick="addToCart(5)">В корзину</button>
+                            <button class="btn btn--secondary btn--small" onclick="addToCart(5)"
+                                style="border-color:#ff2a6d; color:#ff2a6d;">ACQUIRE</button>
                         </div>
                     </div>
                     <div class="product-card__content">
-                        <h3 class="product-card__title">Зип худи «Street»</h3>
-                        <div class="product-card__price">7 500 ₽</div>
-                        <p class="product-card__variants">Размеры: M, L, XL</p>
+                        <h3 class="product-card__title">Zip Hoodie "Street"</h3>
+                        <div class="product-card__price" style="color:#ff2a6d;">7 500 RUB</div>
+                        <p class="product-card__variants">SIZE: M, L, XL</p>
                     </div>
                 </article>
 
                 <article class="product-card" data-id="6">
                     <div class="product-card__image-wrapper">
-                        <img src="images/product_hoodie_2_1769258054565.png" alt="Худи Vortex faded"
+                        <img src="images/product_hoodie_2_1769258054565.png" alt="Vortex Hoodie"
                             class="product-card__image">
-                        <span class="product-card__badge product-card__badge--limited">Limited</span>
+                        <span class="product-card__badge" style="background:#ff2a6d; color:#fff;">LIMITED</span>
                         <div class="product-card__quick-view">
-                            <button class="btn btn--red btn--small" onclick="addToCart(6)">В корзину</button>
+                            <button class="btn btn--secondary btn--small" onclick="addToCart(6)"
+                                style="border-color:#ff2a6d; color:#ff2a6d;">ACQUIRE</button>
                         </div>
                     </div>
                     <div class="product-card__content">
-                        <h3 class="product-card__title">Худи «Vortex» faded grey</h3>
-                        <div class="product-card__price">6 800 ₽</div>
-                        <p class="product-card__variants">Размеры: S, M, L, XL</p>
-                    </div>
-                </article>
-
-                <article class="product-card" data-id="7">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_hoodie_3_1769258068202.png" alt="Худи Olive"
-                            class="product-card__image">
-                        <span class="product-card__badge product-card__badge--limited">Limited</span>
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--red btn--small" onclick="addToCart(7)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Худи «Olive» minimal</h3>
-                        <div class="product-card__price">6 500 ₽</div>
-                        <p class="product-card__variants">Размеры: S, M, L, XL</p>
-                    </div>
-                </article>
-
-                <article class="product-card" data-id="8">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_hoodie_4_1769258081317.png" alt="Худи Botanical"
-                            class="product-card__image">
-                        <span class="product-card__badge product-card__badge--limited">Limited</span>
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--red btn--small" onclick="addToCart(8)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Худи «Botanical» cream</h3>
-                        <div class="product-card__price">6 800 ₽</div>
-                        <p class="product-card__variants">Размеры: S, M, L</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- HOME Section -->
-    <section class="section" id="home">
-        <div class="container">
-            <div class="section__header">
-                <h2 class="section__title">HOME</h2>
-                <a href="catalog.html?category=home" class="section__link">
-                    Смотреть всё
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </a>
-            </div>
-
-            <div class="product-grid">
-                <article class="product-card" data-id="9">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_candle_1_1769258104156.png" alt="Свеча Noir"
-                            class="product-card__image">
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--secondary btn--small" onclick="addToCart(9)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Свеча «Noir» Янтарь</h3>
-                        <div class="product-card__price">1 800 ₽</div>
-                        <p class="product-card__variants">Время горения: 40 часов</p>
-                    </div>
-                </article>
-
-                <article class="product-card" data-id="10">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_candle_2_1769258121598.png" alt="Свеча Blanc"
-                            class="product-card__image">
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--secondary btn--small" onclick="addToCart(10)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Свеча «Blanc» Ваниль</h3>
-                        <div class="product-card__price">1 800 ₽</div>
-                        <p class="product-card__variants">Время горения: 40 часов</p>
-                    </div>
-                </article>
-
-                <article class="product-card" data-id="11">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_pillow_1_1769258135478.png" alt="Чехол на подушку Faces"
-                            class="product-card__image">
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--secondary btn--small" onclick="addToCart(11)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Чехол на подушку «Faces»</h3>
-                        <div class="product-card__price">2 200 ₽</div>
-                        <p class="product-card__variants">Размер: 45×45 см</p>
-                    </div>
-                </article>
-
-                <article class="product-card" data-id="12">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_pillow_2_1769258148459.png" alt="Чехол на подушку Linen"
-                            class="product-card__image">
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--secondary btn--small" onclick="addToCart(12)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Чехол на подушку «Linen»</h3>
-                        <div class="product-card__price">2 000 ₽</div>
-                        <p class="product-card__variants">Размер: 45×45 см</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- MUST HAVE / Bestsellers Section -->
-    <section class="section" style="background: var(--bg-secondary);" id="mustHave">
-        <div class="container">
-            <div class="section__header">
-                <h2 class="section__title section__title--gold">MUST HAVE</h2>
-                <a href="catalog.html?tag=bestseller" class="section__link">
-                    Смотреть всё
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </a>
-            </div>
-
-            <div class="product-grid">
-                <article class="product-card" data-id="5">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_hoodie_1_1769258041855.png" alt="Зип худи Street"
-                            class="product-card__image">
-                        <span class="product-card__badge product-card__badge--bestseller">Bestseller</span>
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--primary btn--small" onclick="addToCart(5)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Зип худи «Street»</h3>
-                        <div class="product-card__price">7 500 ₽</div>
-                        <p class="product-card__variants">Размеры: M, L, XL</p>
-                    </div>
-                </article>
-
-                <article class="product-card" data-id="1">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_tshirt_1_1769257974154.png" alt="Футболка Abstract"
-                            class="product-card__image">
-                        <span class="product-card__badge product-card__badge--bestseller">Bestseller</span>
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--primary btn--small" onclick="addToCart(1)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Футболка «Abstract»</h3>
-                        <div class="product-card__price">3 200 ₽</div>
-                        <p class="product-card__variants">Размеры: S, M, L, XL</p>
-                    </div>
-                </article>
-
-                <article class="product-card" data-id="9">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_candle_1_1769258104156.png" alt="Свеча Noir"
-                            class="product-card__image">
-                        <span class="product-card__badge product-card__badge--bestseller">Bestseller</span>
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--primary btn--small" onclick="addToCart(9)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Свеча «Noir» Янтарь</h3>
-                        <div class="product-card__price">1 800 ₽</div>
-                        <p class="product-card__variants">Время горения: 40 часов</p>
-                    </div>
-                </article>
-
-                <article class="product-card" data-id="3">
-                    <div class="product-card__image-wrapper">
-                        <img src="images/product_longsleeve_1_1769258004454.png" alt="Лонгслив Minimal"
-                            class="product-card__image">
-                        <span class="product-card__badge product-card__badge--bestseller">Bestseller</span>
-                        <div class="product-card__quick-view">
-                            <button class="btn btn--primary btn--small" onclick="addToCart(3)">В корзину</button>
-                        </div>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Лонгслив «Minimal»</h3>
-                        <div class="product-card__price">4 000 ₽</div>
-                        <p class="product-card__variants">Размеры: S, M, L, XL</p>
+                        <h3 class="product-card__title">Hoodie "Vortex" Faded</h3>
+                        <div class="product-card__price" style="color:#ff2a6d;">6 800 RUB</div>
+                        <p class="product-card__variants">SIZE: S, M, L, XL</p>
                     </div>
                 </article>
             </div>
@@ -450,10 +371,10 @@
     <section class="section">
         <div class="container">
             <div class="special-offer">
-                <span class="special-offer__tag">Специальное предложение</span>
-                <h2 class="special-offer__title">Ваша скидка −10%</h2>
-                <p class="special-offer__text">Действует автоматически при сумме заказа от 15 000 ₽</p>
-                <a href="catalog.html" class="btn btn--primary">Перейти к покупкам</a>
+                <span class="special-offer__tag">SPECIAL_OFFER</span>
+                <h2 class="special-offer__title">SYSTEM ALERT: -10% DISCOUNT</h2>
+                <p class="special-offer__text" style="color:#aaa;">AUTO-APPLIED ON ORDERS > 15 000 RUB</p>
+                <a href="catalog.html" class="btn btn--primary" style="margin-top:20px;">INITIATE_PROTOCOL</a>
             </div>
         </div>
     </section>
@@ -462,156 +383,36 @@
     <footer class="footer">
         <div class="container">
             <div class="footer__grid">
-                <!-- Brand Column -->
                 <div class="footer__brand">
                     <div class="footer__logo">STREETHYPE</div>
-                    <p class="footer__desc">
-                        Уличная одежда и аксессуары для тех, кто создаёт свой стиль.
-                        Качественные материалы, уникальный дизайн, доставка по всей России.
-                    </p>
-
+                    <p class="footer__desc">CYBERPUNK STREETWEAR // MOSCOW<br>EST. 2024</p>
                     <div class="footer__socials">
-                        <a href="https://t.me/streethype" class="footer__social" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.05-.2-.06-.06-.15-.04-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z" />
-                            </svg>
-                        </a>
-                        <a href="https://vk.com/streethype" class="footer__social" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                                <path
-                                    d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.587-1.496c.596-.19 1.363 1.26 2.174 1.817.613.421 1.079.33 1.079.33l2.166-.03s1.132-.07.595-.964c-.044-.073-.312-.66-1.605-1.863-1.353-1.26-1.172-1.054.458-3.23.991-1.324 1.39-2.134 1.265-2.48-.118-.33-.85-.242-.85-.242l-2.438.015s-.18-.024-.314.055c-.13.08-.215.26-.215.26s-.386 1.028-.9 1.902c-1.083 1.848-1.518 1.947-1.695 1.832-.413-.267-.31-1.074-.31-1.646 0-1.79.27-2.536-.527-2.73-.266-.063-.46-.106-1.14-.112-.873-.008-1.612.002-2.03.206-.278.136-.492.438-.36.456.162.021.527.098.72.362.25.34.24 1.104.24 1.104s.145 2.11-.337 2.371c-.33.18-.783-.186-1.755-1.857-.498-.856-.874-1.8-.874-1.8s-.072-.177-.202-.27c-.156-.117-.375-.155-.375-.155l-2.318.015s-.348.01-.475.16c-.113.135-.009.413-.009.413s1.812 4.23 3.862 6.364c1.88 1.96 4.014 1.832 4.014 1.832h.967z" />
-                            </svg>
-                        </a>
-                        <a href="https://youtube.com/@streethype" class="footer__social" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                                <path
-                                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                            </svg>
-                        </a>
+                        <a href="https://t.me/streethype" class="footer__social">TG</a>
+                        <a href="https://vk.com/streethype" class="footer__social">VK</a>
                     </div>
                 </div>
-
-                <!-- Catalog Column -->
                 <div class="footer__column">
-                    <h3 class="footer__title">Каталог</h3>
+                    <h3 class="footer__title">NAVIGATION</h3>
                     <nav class="footer__links">
-                        <a href="catalog.html" class="footer__link">Все товары</a>
-                        <a href="collections.html" class="footer__link">Коллекции</a>
-                        <a href="catalog.html?category=home" class="footer__link">Home</a>
-                        <a href="lookbook.html" class="footer__link">Lookbook</a>
-                        <a href="catalog.html?category=certificates" class="footer__link">Сертификаты</a>
+                        <a href="catalog.html" class="footer__link">CATALOG</a>
+                        <a href="collections.html" class="footer__link">COLLECTIONS</a>
+                        <a href="about.html" class="footer__link">ABOUT</a>
                     </nav>
                 </div>
-
-                <!-- Info Column -->
                 <div class="footer__column">
-                    <h3 class="footer__title">Информация</h3>
+                    <h3 class="footer__title">SUPPORT</h3>
                     <nav class="footer__links">
-                        <a href="about.html" class="footer__link">О бренде</a>
-                        <a href="delivery.html" class="footer__link">Доставка и оплата</a>
-                        <a href="returns.html" class="footer__link">Возврат и обмен</a>
+                        <a href="delivery.html" class="footer__link">DELIVERY</a>
+                        <a href="returns.html" class="footer__link">RETURNS</a>
                         <a href="faq.html" class="footer__link">FAQ</a>
-                        <a href="contacts.html" class="footer__link">Контакты</a>
                     </nav>
-                </div>
-
-                <!-- Contacts Column -->
-                <div class="footer__column">
-                    <h3 class="footer__title">Контакты</h3>
-                    <div class="footer__contacts">
-                        <a href="https://t.me/streethype_support" class="footer__contact-item">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.05-.2-.06-.06-.15-.04-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z" />
-                            </svg>
-                            @streethype_support
-                        </a>
-                        <a href="tel:+79001234567" class="footer__contact-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
-                                height="18">
-                                <path
-                                    d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
-                            </svg>
-                            +7 (900) 123-45-67
-                        </a>
-                        <a href="mailto:info@streethype.ru" class="footer__contact-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
-                                height="18">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                                <polyline points="22,6 12,13 2,6" />
-                            </svg>
-                            info@streethype.ru
-                        </a>
-                        <div class="footer__contact-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
-                                height="18">
-                                <circle cx="12" cy="12" r="10" />
-                                <polyline points="12 6 12 12 16 14" />
-                            </svg>
-                            ПН-ПТ: 09:00 — 19:00
-                        </div>
-                    </div>
-
-                    <!-- Newsletter -->
-                    <div class="footer__newsletter">
-                        <form class="footer__newsletter-form" id="newsletterForm">
-                            <input type="email" placeholder="Ваш e-mail" class="footer__newsletter-input" required>
-                            <button type="submit" class="footer__newsletter-btn">Подписаться</button>
-                        </form>
-                        <p class="footer__newsletter-note">
-                            Нажимая «Подписаться» вы соглашаетесь с
-                            <a href="privacy.html">политикой конфиденциальности</a>
-                        </p>
-                    </div>
                 </div>
             </div>
-
-            <!-- Footer Bottom -->
             <div class="footer__bottom">
-                <div class="footer__legal">
-                    ИП Иванов Иван Иванович · ИНН 772500000000 · © STREETHYPE 2024-2026
-                </div>
-                <div class="footer__legal-links">
-                    <a href="oferta.html">Публичная оферта</a>
-                    <a href="privacy.html">Политика конфиденциальности</a>
-                    <a href="cookies.html">Политика cookie</a>
-                </div>
+                <div class="footer__legal">© STREETHYPE 2024 // ALL RIGHTS RESERVED</div>
             </div>
         </div>
     </footer>
-
-    <!-- Messenger Buttons -->
-    <div class="messenger-buttons">
-        <a href="https://t.me/streethype_support" class="messenger-btn messenger-btn--telegram" target="_blank"
-            rel="noopener" title="Написать в Telegram">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.05-.2-.06-.06-.15-.04-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z" />
-            </svg>
-        </a>
-        <a href="https://wa.me/79001234567" class="messenger-btn messenger-btn--whatsapp" target="_blank" rel="noopener"
-            title="Написать в WhatsApp">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                <path
-                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-        </a>
-    </div>
-
-    <!-- Popup -->
-    <div class="popup" id="welcomePopup">
-        <div class="popup__content">
-            <button class="popup__close" id="popupClose">&times;</button>
-            <span class="special-offer__tag">Добро пожаловать!</span>
-            <h2 class="special-offer__title">Скидка 10% на первый заказ</h2>
-            <p class="special-offer__text">Подпишитесь на рассылку и получите промокод на скидку</p>
-            <form class="footer__newsletter-form" id="popupForm" style="max-width: 300px; margin: 0 auto;">
-                <input type="email" placeholder="Ваш e-mail" class="footer__newsletter-input" required>
-                <button type="submit" class="footer__newsletter-btn">Получить</button>
-            </form>
-        </div>
-    </div>
 
     <script src="js/main.js"></script>
 </body>
