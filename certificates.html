@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подарочные сертификаты — STREETHYPE</title>
+    <meta name="description" content="Подарочные сертификаты STREETHYPE — идеальный подарок для ценителей уличной моды">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CERTIFICATES PAGE STYLES (CYBERPUNK / HUD)
+           ============================================ */
+        .certificates-page {
+            padding: var(--space-3xl) 0;
+            min-height: 80vh;
+        }
+
+        /* 1. NEON HEADER */
+        .certificates-hero {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+            padding: var(--space-2xl) 0;
+            position: relative;
+        }
+
+        .certificates-hero h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: var(--space-md);
+            color: var(--accent-lime);
+            text-shadow:
+                0 0 10px rgba(200, 255, 0, 0.5),
+                0 0 20px rgba(200, 255, 0, 0.3),
+                0 0 40px rgba(200, 255, 0, 0.2),
+                0 0 80px rgba(200, 255, 0, 0.1);
+            animation: neonPulse 3s infinite alternate;
+        }
+
+        .certificates-hero p {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        @keyframes neonPulse {
+            from {
+                text-shadow:
+                    0 0 10px rgba(200, 255, 0, 0.5),
+                    0 0 20px rgba(200, 255, 0, 0.3),
+                    0 0 40px rgba(200, 255, 0, 0.2);
+            }
+
+            to {
+                text-shadow:
+                    0 0 15px rgba(200, 255, 0, 0.6),
+                    0 0 30px rgba(200, 255, 0, 0.4),
+                    0 0 50px rgba(200, 255, 0, 0.3),
+                    0 0 90px rgba(200, 255, 0, 0.2);
+            }
+        }
+
+        /* 2. DIGITAL ASSET CARDS (ENVELOPE ANIMATION) */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-3xl);
+            margin-bottom: var(--space-3xl);
+            padding-top: 50px;
+        }
+
+        .cert-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .cert-card {
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            width: 90%;
+            height: 300px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid var(--accent-lime);
+            padding: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            transform: translateY(0);
+        }
+
+        .cert-container:hover .cert-card {
+            transform: translateY(-120px);
+            z-index: 3;
+        }
+
+        .cert-envelope-front {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 220px;
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(200, 255, 0, 0.3);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            pointer-events: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .cert-envelope-front::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.8));
+            z-index: -1;
+        }
+
+        .cert-envelope-mark {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .cert-envelope-status {
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: var(--accent-lime);
+            border: 1px solid var(--accent-lime);
+            padding: 4px 8px;
+            opacity: 0.7;
+        }
+
+        .cert-card-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: var(--space-xs);
+        }
+
+        .cert-card-brand {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .cert-amount {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: var(--space-xs);
+        }
+
+        .cert-desc {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            margin-bottom: auto;
+            line-height: 1.4;
+        }
+
+        .cert-btn {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--accent-lime);
+            color: #fff !important;
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: var(--space-md);
+        }
+
+        .cert-btn:hover {
+            background: var(--accent-lime);
+            color: #000 !important;
+            box-shadow: 0 0 15px var(--accent-lime);
+        }
+
+        .cert-btn.elite {
+            border-color: #fff;
+        }
+
+        .cert-btn.elite:hover {
+            background: #fff;
+            color: #000 !important;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        .cert-envelope-front::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            border-bottom: 2px solid var(--accent-lime);
+            border-right: 2px solid var(--accent-lime);
+        }
+
+        /* 3. ACTIVATION PROTOCOL (HOW IT WORKS) */
+        .protocol-section {
+            margin-top: var(--space-3xl);
+            padding: var(--space-2xl);
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .protocol-section::before {
+            content: 'ACTIVATION_PROTOCOL // SYSTEM_GUIDE';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px var(--space-lg);
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: right;
+        }
+
+        .protocol-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: var(--space-md);
+            margin-bottom: var(--space-2xl);
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .protocol-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xl);
+        }
+
+        .protocol-step {
+            position: relative;
+            padding-left: var(--space-xl);
+            border-left: 1px solid rgba(200, 255, 0, 0.3);
+        }
+
+        .protocol-num {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--accent-lime);
+            opacity: 0.5;
+            position: absolute;
+            top: -15px;
+            left: var(--space-md);
+            z-index: 0;
+        }
+
+        .protocol-step h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--accent-lime);
+            margin-bottom: var(--space-sm);
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        .protocol-step p {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 4. FAQ */
+        .faq-section {
+            margin-top: var(--space-3xl);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faq-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .faq-item {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: var(--space-md);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(200, 255, 0, 0.3);
+            background: rgba(200, 255, 0, 0.02);
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: var(--space-lg);
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+
+        .faq-question::after {
+            content: '+';
+            color: var(--accent-lime);
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .faq-item.active .faq-question::after {
+            content: '-';
+        }
+
+        .faq-answer {
+            padding: 0 var(--space-lg) var(--space-lg);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: var(--space-sm);
+            padding-top: var(--space-md);
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .certificates-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .protocol-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .protocol-step {
+                border-left: none;
+                border-top: 1px solid rgba(200, 255, 0, 0.3);
+                padding-left: 0;
+                padding-top: var(--space-lg);
+            }
+
+            .protocol-num {
+                top: -10px;
+                left: auto;
+                right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="header__logo">STREETHYPE</a>
+            <nav class="header__nav">
+                <a href="catalog.html" class="header__nav-link">Каталог</a>
+                <a href="collections.html" class="header__nav-link">Коллекции</a>
+                <a href="lookbook.html" class="header__nav-link">Lookbook</a>
+                <a href="certificates.html" class="header__nav-link" style="color: var(--accent-lime);">Сертификаты</a>
+                <a href="about.html" class="header__nav-link">Инфо</a>
+            </nav>
+            <div class="header__actions">
+                <a href="index.html#cart" class="header__cart">
+                    <div class="header__cart-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 01-8 0" />
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </div>
+                </a>
+                <button class="header__burger" id="menuToggle"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="certificates-page">
+        <div class="container">
+            <!-- Neon Hero Section -->
+            <section class="certificates-hero">
+                <h1>Сертификаты</h1>
+                <p>DIGITAL_GIFT // ACCESS_GRANTED</p>
+            </section>
+
+            <!-- Digital Asset Grid (Envelope Style) -->
+            <section class="certificates-grid">
+
+                <!-- 3000 -->
+                <div class="cert-container">
+                    <div class="cert-card">
+                        <div class="cert-card-header">
+                            <span class="cert-card-brand">STREETHYPE // GIFT</span>
+                            <span class="cert-card-brand">ID: 03K</span>
+                        </div>
+                        <div class="cert-amount">3 000 ₽</div>
+                        <p class="cert-desc">Базовый старт. Футболка или аксессуар.</p>
+                        <button class="cert-btn add-to-cart-btn" data-name="Сертификат 3000₽"
+                            data-price="3000">ПРИОБРЕСТИ</button>
+                    </div>
+                    <div class="cert-envelope-front">
+                        <div class="cert-envelope-mark">STREETHYPE</div>
+                        <div class="cert-envelope-status">STATUS: SECURE</div>
+                    </div>
+                </div>
+
+                <!-- 5000 -->
+                <div class="cert-container">
+                    <div class="cert-card">
+                        <div class="cert-card-header">
+                            <span class="cert-card-brand">STREETHYPE // GIFT</span>
+                            <span class="cert-card-brand">ID: 05K</span>
+                        </div>
+                        <div class="cert-amount">5 000 ₽</div>
+                        <p class="cert-desc">Свобода выбора. Лонгслив или худи.</p>
+                        <button class="cert-btn add-to-cart-btn" data-name="Сертификат 5000₽"
+                            data-price="5000">ПРИОБРЕСТИ</button>
+                    </div>
+                    <div class="cert-envelope-front">
+                        <div class="cert-envelope-mark">STREETHYPE</div>
+                        <div class="cert-envelope-status">STATUS: SECURE</div>
+                    </div>
+                </div>
+
+                <!-- 10000 -->
+                <div class="cert-container">
+                    <div class="cert-card">
+                        <div class="cert-card-header">
+                            <span class="cert-card-brand">STREETHYPE // GIFT</span>
+                            <span class="cert-card-brand">ID: 10K</span>
+                        </div>
+                        <div class="cert-amount">10 000 ₽</div>
+                        <p class="cert-desc">Серьезный грейд. Премиум худи.</p>
+                        <button class="cert-btn add-to-cart-btn" data-name="Сертификат 10000₽"
+                            data-price="10000">ПРИОБРЕСТИ</button>
+                    </div>
+                    <div class="cert-envelope-front">
+                        <div class="cert-envelope-mark">STREETHYPE</div>
+                        <div class="cert-envelope-status">STATUS: SECURE</div>
+                    </div>
+                </div>
+
+                <!-- 15000 -->
+                <div class="cert-container">
+                    <div class="cert-card">
+                        <div class="cert-card-header">
+                            <span class="cert-card-brand">STREETHYPE // GIFT</span>
+                            <span class="cert-card-brand">ID: 15K</span>
+                        </div>
+                        <div class="cert-amount">15 000 ₽</div>
+                        <p class="cert-desc">Максимальный стиль. Полный образ.</p>
+                        <button class="cert-btn add-to-cart-btn" data-name="Сертификат 15000₽"
+                            data-price="15000">ПРИОБРЕСТИ</button>
+                    </div>
+                    <div class="cert-envelope-front">
+                        <div class="cert-envelope-mark">STREETHYPE</div>
+                        <div class="cert-envelope-status">STATUS: SECURE</div>
+                    </div>
+                </div>
+
+                <!-- 25000 -->
+                <div class="cert-container">
+                    <div class="cert-card" style="border-top-color: #fff;">
+                        <div class="cert-card-header">
+                            <span class="cert-card-brand">STREETHYPE // ELITE</span>
+                            <span class="cert-card-brand">ID: MAX</span>
+                        </div>
+                        <div class="cert-amount" style="text-shadow: 0 0 10px rgba(255,255,255,0.5);">25 000 ₽</div>
+                        <p class="cert-desc">Эксклюзив. Доступ к закрытым дропам.</p>
+                        <button class="cert-btn elite add-to-cart-btn" data-name="Сертификат 25000₽"
+                            data-price="25000">ПРИОБРЕСТИ</button>
+                    </div>
+                    <div class="cert-envelope-front" style="border-top-color: rgba(255,255,255,0.5);">
+                        <div class="cert-envelope-mark" style="color: rgba(255,255,255,0.3);">ELITE</div>
+                        <div class="cert-envelope-status" style="border-color: #fff; color: #fff;">ACCESS: ALL</div>
+                    </div>
+                </div>
+
+                <!-- Custom -->
+                <div class="cert-container">
+                    <div class="cert-card">
+                        <div class="cert-card-header">
+                            <span class="cert-card-brand">STREETHYPE // USER</span>
+                            <span class="cert-card-brand">ID: ???</span>
+                        </div>
+                        <div class="cert-amount" style="font-size: 2rem;">CUSTOM</div>
+                        <p class="cert-desc">Любой номинал. Напишите нам.</p>
+                        <a href="contacts.html" class="cert-btn"
+                            style="text-align: center; text-decoration: none;">СВЯЗАТЬСЯ</a>
+                    </div>
+                    <div class="cert-envelope-front">
+                        <div class="cert-envelope-mark">MANUAL</div>
+                        <div class="cert-envelope-status">STATUS: WAIT</div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Activation Protocol -->
+            <section class="protocol-section">
+                <h2 class="protocol-title">КАК ЭТО РАБОТАЕТ</h2>
+                <div class="protocol-grid">
+                    <div class="protocol-step">
+                        <span class="protocol-num">01</span>
+                        <h3>ВЫБОР НОМИНАЛА</h3>
+                        <p>Выберите подходящую сумму сертификата и добавьте его в корзину.</p>
+                    </div>
+                    <div class="protocol-step">
+                        <span class="protocol-num">02</span>
+                        <h3>ОПЛАТА ONLINE</h3>
+                        <p>Оплатите заказ картой, Apple Pay или через СБП. Безопасная транзакция.</p>
+                    </div>
+                    <div class="protocol-step">
+                        <span class="protocol-num">03</span>
+                        <h3>ПОЛУЧЕНИЕ КОДА</h3>
+                        <p>Уникальный цифровой код придет на email. Активация доступна мгновенно.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ -->
+            <section class="faq-section">
+                <h2 class="faq-title">БАЗА ЗНАНИЙ (FAQ)</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">СРОК ДЕЙСТВИЯ КЛЮЧА?</button>
+                        <div class="faq-answer">
+                            <p>Сертификат активен в течение 12 месяцев (1 год) с момента генерации кода.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">ЧАСТИЧНАЯ АКТИВАЦИЯ?</button>
+                        <div class="faq-answer">
+                            <p>Да. Баланс сохраняется в системе до полного расходования средств.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">ВОЗВРАТ СРЕДСТВ?</button>
+                        <div class="faq-answer">
+                            <p>Возврат неактивированного цифрового ключа возможен в течение 14 дней согласно протоколу
+                                возврата.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom" style="padding-top: 0; border-top: none;">
+                <div class="footer__legal">© STREETHYPE 2024-2026</div>
+                <div class="footer__legal-links">
+                    <a href="index.html">Главная</a>
+                    <a href="delivery.html">Доставка</a>
+                    <a href="contacts.html">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Messenger Buttons -->
+    <div class="messenger-buttons">
+        <a href="https://t.me/streethype_support" class="messenger-btn telegram" title="Telegram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
+        </a>
+        <a href="https://wa.me/78001234567" class="messenger-btn whatsapp" title="WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+            </svg>
+        </a>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

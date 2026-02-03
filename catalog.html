@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Каталог STREETHYPE — футболки, худи, аксессуары. Cyberpunk streetwear.">
+    <title>GLOBAL_INVENTORY // STREETHYPE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CATALOG PAGE STYLES (CYBERPUNK / HUD)
+           ============================================ */
+        .catalog-page {
+            padding: var(--space-2xl) 0;
+            min-height: 80vh;
+        }
+
+        /* 1. DATA STREAM TICKER */
+        .data-stream {
+            background: #000;
+            border-bottom: 1px solid var(--accent-lime);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 8px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-lime);
+            position: relative;
+        }
+
+        .data-stream__track {
+            display: inline-block;
+            animation: tickerMove 20s linear infinite;
+        }
+
+        @keyframes tickerMove {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .data-stream__item {
+            margin-right: 50px;
+        }
+
+        .data-stream__item span {
+            color: #fff;
+        }
+
+        .data-stream a {
+            color: var(--accent-lime);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-lime);
+        }
+
+        /* 2. CATALOG HEADER */
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: var(--space-2xl);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: var(--space-lg);
+        }
+
+        .catalog-title h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .catalog-title h1 span {
+            color: var(--accent-lime);
+            text-shadow: 0 0 15px rgba(200, 255, 0, 0.3);
+        }
+
+        .catalog-subtitle {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .catalog-controls {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        /* Mobile filter toggle */
+        .mobile-filter-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--accent-lime);
+            color: var(--accent-lime);
+            padding: 8px 16px;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        /* 3. LAYOUT */
+        .catalog-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-2xl);
+            align-items: start;
+        }
+
+        /* 4. SIDEBAR TERMINAL */
+        .catalog-sidebar {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--space-xl);
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--accent-lime);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-lime);
+            box-shadow: 0 0 10px var(--accent-lime);
+        }
+
+        .filter-group {
+            margin-bottom: var(--space-xl);
+        }
+
+        .filter-header {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+        }
+
+        /* Custom Checkbox */
+        .filter-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .filter-option:hover {
+            color: #fff;
+        }
+
+        .filter-checkbox {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-right: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-checkbox:checked {
+            border-color: var(--accent-lime);
+            background: rgba(200, 255, 0, 0.1);
+        }
+
+        .filter-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-lime);
+            box-shadow: 0 0 5px var(--accent-lime);
+        }
+
+        /* Price inputs */
+        .price-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .price-input {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .price-input:focus {
+            outline: none;
+            border-color: var(--accent-lime);
+        }
+
+        /* Reset Button */
+        .filter-reset {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 10px;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: var(--space-lg);
+            font-size: 0.9rem;
+        }
+
+        .filter-reset:hover {
+            background: var(--accent-red);
+            color: #000;
+        }
+
+        /* 5. PRODUCT GRID & CARDS */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-xl);
+        }
+
+        .product-card {
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        /* Grid "Corner" markers */
+        .product-card::before,
+        .product-card::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .product-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .product-card:hover::before {
+            top: -1px;
+            left: -1px;
+            border-top-color: var(--accent-lime);
+            border-left-color: var(--accent-lime);
+        }
+
+        .product-card:hover::after {
+            bottom: -1px;
+            right: -1px;
+            border-bottom-color: var(--accent-lime);
+            border-right-color: var(--accent-lime);
+        }
+
+        @media (max-width: 992px) {
+            .catalog-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .catalog-sidebar {
+                display: none;
+                /* Hide via CSS, toggle via JS class */
+            }
+
+            .catalog-sidebar.active {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: #000;
+                z-index: 100;
+                overflow-y: auto;
+            }
+
+            .mobile-filter-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1. Data Stream Ticker -->
+    <div class="data-stream">
+        <div class="data-stream__track">
+            <span class="data-stream__item">SYSTEM_STATUS: <span>ONLINE</span></span>
+            <span class="data-stream__item">NEW_DROP_DETECTED: <span>NEON_VANGUARD</span> // <a
+                    href="catalog.html?collection=limited">ACCESS_NOW</a></span>
+            <span class="data-stream__item">FREE_SHIPPING_THRESHOLD: <span>5000RUB</span></span>
+            <span class="data-stream__item">SYSTEM_STATUS: <span>ONLINE</span></span>
+            <span class="data-stream__item">NEW_DROP_DETECTED: <span>NEON_VANGUARD</span> // <a
+                    href="catalog.html?collection=limited">ACCESS_NOW</a></span>
+            <span class="data-stream__item">FREE_SHIPPING_THRESHOLD: <span>5000RUB</span></span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="collections.html" class="header__logo">STREETHYPE</a>
+            <nav class="header__nav">
+                <a href="catalog.html" class="header__nav-link" style="color: var(--accent-lime);">Каталог</a>
+                <a href="collections.html" class="header__nav-link">Коллекции</a>
+                <a href="lookbook.html" class="header__nav-link">Lookbook</a>
+                <a href="certificates.html" class="header__nav-link">Сертификаты</a>
+                <a href="about.html" class="header__nav-link">Инфо</a>
+            </nav>
+            <div class="header__actions">
+                <a href="#" class="header__cart" id="cartBtn">
+                    <div class="header__cart-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 01-8 0" />
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </div>
+                </a>
+                <button class="header__burger" id="menuToggle"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Mobile Nav -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav__close" id="mobileNavClose">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="mobile-nav__links">
+            <a href="catalog.html" class="mobile-nav__link">Каталог</a>
+            <a href="collections.html" class="mobile-nav__link">Коллекции</a>
+            <a href="lookbook.html" class="mobile-nav__link">Lookbook</a>
+            <a href="certificates.html" class="mobile-nav__link">Сертификаты</a>
+            <a href="about.html" class="mobile-nav__link">О бренде</a>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main class="catalog-page">
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="catalog-header">
+                <div class="catalog-title">
+                    <h1>GLOBAL_<span>INVENTORY</span></h1>
+                    <div class="catalog-subtitle">DATABASE_ACCESS_LEVEL: PUBLIC // TOTAL_ITEMS: <span
+                            id="itemCount">12</span></div>
+                </div>
+                <div class="catalog-controls">
+                    <button class="mobile-filter-toggle" id="filterToggle">FILTER_PARAMS</button>
+                    <!-- Expandable sort could go here -->
+                </div>
+            </div>
+
+            <div class="catalog-layout">
+
+                <!-- FILTER SIDEBAR -->
+                <aside class="catalog-sidebar" id="catalogSidebar">
+                    <div class="sidebar-title">
+                        SEARCH_PARAMETERS
+                        <button class="mobile-filter-toggle" id="filterClose"
+                            style="border:none; margin-left:auto;">✕</button>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="filter-group">
+                        <div class="filter-header">CATEGORY_TYPE</div>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="category" value="tshirt"> T-Shirts
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="category" value="longsleeve">
+                            Longsleeves
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="category" value="hoodie"> Hoodies
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="category" value="home"> Home / Decor
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="category" value="certificates">
+                            Certificates
+                        </label>
+                    </div>
+
+                    <!-- Size -->
+                    <div class="filter-group">
+                        <div class="filter-header">SIZE_SPEC</div>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="size" value="s"> S
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="size" value="m"> M
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="size" value="l"> L
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="size" value="xl"> XL
+                        </label>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="filter-group">
+                        <div class="filter-header">PRICE_RANGE (RUB)</div>
+                        <div class="price-inputs">
+                            <input type="number" id="priceMin" placeholder="0" class="price-input">
+                            <span>-</span>
+                            <input type="number" id="priceMax" placeholder="10000" class="price-input">
+                        </div>
+                    </div>
+
+                    <!-- Drops -->
+                    <div class="filter-group">
+                        <div class="filter-header">DROP_STATUS</div>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="tag" value="new"> New Drop
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="tag" value="limited"> Limited Edition
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="tag" value="bestseller"> Bestseller
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" class="filter-checkbox" name="tag" value="sale"> Sale
+                        </label>
+                    </div>
+
+                    <button class="filter-reset" id="resetFilters">RESET_SYSTEM</button>
+                </aside>
+
+                <!-- PRODUCT GRID -->
+                <div class="product-grid" id="productGrid">
+
+                    <!-- Item 1 -->
+                    <article class="product-card" data-id="1" data-category="tshirt" data-price="3200"
+                        data-sizes="s,m,l,xl" data-tags="new,bestseller">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_tshirt_1_1769257974154.png" alt="Abstract Tee"
+                                class="product-card__image">
+                            <span class="product-card__badge product-card__badge--new">New Drop</span>
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--primary btn--small" onclick="addToCart(1)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Футболка «Abstract»</h3>
+                            <div class="product-card__price">3 200 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 2 -->
+                    <article class="product-card" data-id="2" data-category="tshirt" data-price="3200"
+                        data-sizes="s,m,l,xl" data-tags="new">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_tshirt_2_1769257991862.png" alt="Typography Tee"
+                                class="product-card__image">
+                            <span class="product-card__badge product-card__badge--new">New Drop</span>
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--primary btn--small" onclick="addToCart(2)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Футболка «Typography»</h3>
+                            <div class="product-card__price">3 200 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 3 -->
+                    <article class="product-card" data-id="3" data-category="longsleeve" data-price="4000"
+                        data-sizes="s,m,l,xl" data-tags="new,bestseller,basic">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_longsleeve_1_1769258004454.png" alt="Minimal Long"
+                                class="product-card__image">
+                            <span class="product-card__badge product-card__badge--new">New Drop</span>
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--primary btn--small" onclick="addToCart(3)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Лонгслив «Minimal»</h3>
+                            <div class="product-card__price">4 000 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 4 -->
+                    <article class="product-card" data-id="4" data-category="longsleeve" data-price="4000"
+                        data-sizes="s,m,l,xl" data-tags="new">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_longsleeve_2_1769258018680.png" alt="Vintage Long"
+                                class="product-card__image">
+                            <span class="product-card__badge product-card__badge--new">New Drop</span>
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--primary btn--small" onclick="addToCart(4)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Лонгслив «Vintage»</h3>
+                            <div class="product-card__price">4 000 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 5 -->
+                    <article class="product-card" data-id="5" data-category="hoodie" data-price="7500"
+                        data-sizes="m,l,xl" data-tags="limited,bestseller,urban">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_hoodie_1_1769258041855.png" alt="Street Zip"
+                                class="product-card__image">
+                            <span class="product-card__badge product-card__badge--limited">Limited</span>
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--primary btn--small" onclick="addToCart(5)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Зип худи «Street»</h3>
+                            <div class="product-card__price">7 500 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 6 -->
+                    <article class="product-card" data-id="6" data-category="hoodie" data-price="6800"
+                        data-sizes="s,m,l,xl" data-tags="limited,urban">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_hoodie_2_1769258054565.png" alt="Vortex Hoodie"
+                                class="product-card__image">
+                            <span class="product-card__badge product-card__badge--limited">Limited</span>
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--primary btn--small" onclick="addToCart(6)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Худи «Vortex» faded</h3>
+                            <div class="product-card__price">6 800 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 7 -->
+                    <article class="product-card" data-id="7" data-category="hoodie" data-price="6500"
+                        data-sizes="s,m,l,xl" data-tags="limited,basic">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_hoodie_3_1769258068202.png" alt="Olive Hoodie"
+                                class="product-card__image">
+                            <span class="product-card__badge product-card__badge--limited">Limited</span>
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--primary btn--small" onclick="addToCart(7)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Худи «Olive» minimal</h3>
+                            <div class="product-card__price">6 500 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 8 -->
+                    <article class="product-card" data-id="8" data-category="hoodie" data-price="6800"
+                        data-sizes="s,m,l" data-tags="limited,basic">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_hoodie_4_1769258081317.png" alt="Botanical Hoodie"
+                                class="product-card__image">
+                            <span class="product-card__badge product-card__badge--limited">Limited</span>
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--primary btn--small" onclick="addToCart(8)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Худи «Botanical»</h3>
+                            <div class="product-card__price">6 800 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 9 -->
+                    <article class="product-card" data-id="9" data-category="home" data-price="1800" data-sizes=""
+                        data-tags="bestseller,home">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_candle_1_1769258104156.png" alt="Candle Noir"
+                                class="product-card__image">
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--secondary btn--small"
+                                    onclick="addToCart(9)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Свеча «Noir» Янтарь</h3>
+                            <div class="product-card__price">1 800 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 10 -->
+                    <article class="product-card" data-id="10" data-category="home" data-price="1800" data-sizes=""
+                        data-tags="home">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_candle_2_1769258121598.png" alt="Candle Blanc"
+                                class="product-card__image">
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--secondary btn--small"
+                                    onclick="addToCart(10)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Свеча «Blanc» Ваниль</h3>
+                            <div class="product-card__price">1 800 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 11 -->
+                    <article class="product-card" data-id="11" data-category="home" data-price="2200" data-sizes=""
+                        data-tags="home">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_pillow_1_1769258135478.png" alt="Pillow Faces"
+                                class="product-card__image">
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--secondary btn--small"
+                                    onclick="addToCart(11)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Чехол «Faces»</h3>
+                            <div class="product-card__price">2 200 ₽</div>
+                        </div>
+                    </article>
+
+                    <!-- Item 12 -->
+                    <article class="product-card" data-id="12" data-category="home" data-price="2000" data-sizes=""
+                        data-tags="home">
+                        <div class="product-card__image-wrapper">
+                            <img src="images/product_pillow_2_1769258148459.png" alt="Pillow Linen"
+                                class="product-card__image">
+                            <div class="product-card__quick-view">
+                                <button class="btn btn--secondary btn--small"
+                                    onclick="addToCart(12)">ADD_TO_CART</button>
+                            </div>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Чехол «Linen»</h3>
+                            <div class="product-card__price">2 000 ₽</div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom" style="padding-top: 0; border-top: none;">
+                <div class="footer__legal">© STREETHYPE 2024-2026</div>
+                <div class="footer__legal-links">
+                    <a href="index.html">Главная</a>
+                    <a href="contacts.html">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // ==========================================
+        // CATALOG FILTER LOGIC (Embedded for speed)
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.product-card');
+            const checkboxes = document.querySelectorAll('.filter-checkbox');
+            const priceMin = document.getElementById('priceMin');
+            const priceMax = document.getElementById('priceMax');
+            const resetBtn = document.getElementById('resetFilters');
+            const itemCount = document.getElementById('itemCount');
+            const toggleBtn = document.getElementById('filterToggle');
+            const closeBtn = document.getElementById('filterClose');
+            const sidebar = document.getElementById('catalogSidebar');
+
+            // 1. Mobile Sidebar Toggle
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => sidebar.classList.add('active'));
+            }
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+            }
+
+            // 2. Main Filter Function
+            function filterProducts() {
+                // Get checked values
+                const checkedCats = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
+                const checkedSizes = Array.from(document.querySelectorAll('input[name="size"]:checked')).map(cb => cb.value);
+                const checkedTags = Array.from(document.querySelectorAll('input[name="tag"]:checked')).map(cb => cb.value);
+
+                const min = parseInt(priceMin.value) || 0;
+                const max = parseInt(priceMax.value) || 100000;
+
+                let visibleCount = 0;
+
+                cards.forEach(card => {
+                    const cardCat = card.dataset.category;
+                    const cardPrice = parseInt(card.dataset.price);
+                    const cardSizes = card.dataset.sizes ? card.dataset.sizes.split(',') : [];
+                    const cardTags = card.dataset.tags ? card.dataset.tags.split(',') : [];
+
+                    // Logic matches
+                    const matchCat = checkedCats.length === 0 || checkedCats.includes(cardCat);
+                    const matchSize = checkedSizes.length === 0 || checkedSizes.some(s => cardSizes.includes(s));
+                    const matchTag = checkedTags.length === 0 || checkedTags.some(t => cardTags.includes(t));
+                    const matchPrice = cardPrice >= min && cardPrice <= max;
+
+                    if (matchCat && matchSize && matchTag && matchPrice) {
+                        card.style.display = 'block';
+                        // Add animation class re-trigger hack if needed
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Update counter
+                if (itemCount) itemCount.textContent = visibleCount;
+            }
+
+            // 3. Listeners
+            checkboxes.forEach(cb => cb.addEventListener('change', filterProducts));
+            priceMin.addEventListener('input', filterProducts);
+            priceMax.addEventListener('input', filterProducts);
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    checkboxes.forEach(cb => cb.checked = false);
+                    priceMin.value = '';
+                    priceMax.value = '';
+                    filterProducts();
+                });
+            }
+
+            // 4. URL Params auto-select
+            // ?collection=limited -> selects tag=limited
+            // ?collection=urban -> selects tag=urban?? or category=hoodie? Let's map.
+            // ?category=tshirt -> selects category=tshirt
+
+            const params = new URLSearchParams(window.location.search);
+            const collection = params.get('collection');
+            const category = params.get('category');
+
+            if (collection === 'limited') {
+                const cb = document.querySelector('input[name="tag"][value="limited"]');
+                if (cb) cb.checked = true;
+            }
+            if (collection === 'urban') {
+                // Mapping urban to hoodie + longsleeve? or just tag if I had one. 
+                // Let's check 'urban' tag - I added it to items 5,6.
+                const cb = document.querySelector('input[name="tag"][value="urban"]');
+                if (cb) cb.checked = true;
+            }
+            if (collection === 'basic') {
+                const cb = document.querySelector('input[name="tag"][value="basic"]');
+                if (cb) cb.checked = true;
+            }
+            if (category) {
+                const cb = document.querySelector(`input[name="category"][value="${category}"]`);
+                if (cb) cb.checked = true;
+            }
+
+            // Initial run
+            filterProducts();
+        });
+    </script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

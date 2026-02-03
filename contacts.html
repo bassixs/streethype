@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Контакты STREETHYPE — напишите нам в Telegram, позвоните или отправьте email.">
+    <title>Контакты — STREETHYPE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ============================================
+           CONTACTS PAGE STYLES (CYBERPUNK / HUD)
+           ============================================ */
+        .info-page {
+            padding: var(--space-3xl) 0;
+            min-height: 70vh;
+        }
+
+        /* 1. NEON HEADER */
+        .info-page__header {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+            padding: var(--space-2xl) 0;
+            position: relative;
+        }
+
+        .info-page__title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: var(--space-md);
+            color: var(--accent-lime);
+            text-shadow:
+                0 0 10px rgba(200, 255, 0, 0.5),
+                0 0 20px rgba(200, 255, 0, 0.3),
+                0 0 40px rgba(200, 255, 0, 0.2),
+                0 0 80px rgba(200, 255, 0, 0.1);
+            animation: neonPulse 3s infinite alternate;
+        }
+
+        @keyframes neonPulse {
+            from {
+                text-shadow:
+                    0 0 10px rgba(200, 255, 0, 0.5),
+                    0 0 20px rgba(200, 255, 0, 0.3),
+                    0 0 40px rgba(200, 255, 0, 0.2);
+            }
+
+            to {
+                text-shadow:
+                    0 0 15px rgba(200, 255, 0, 0.6),
+                    0 0 30px rgba(200, 255, 0, 0.4),
+                    0 0 50px rgba(200, 255, 0, 0.3),
+                    0 0 90px rgba(200, 255, 0, 0.2);
+            }
+        }
+
+        .info-page__subtitle {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* 2. TECH CONTACT CARDS */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-xl);
+            max-width: 1100px;
+            margin: 0 auto var(--space-3xl);
+        }
+
+        .contact-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: var(--space-xl);
+            text-align: left;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            overflow: hidden;
+        }
+
+        .contact-card:hover {
+            background: rgba(200, 255, 0, 0.05);
+            border-color: rgba(200, 255, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Tech decorative corners */
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 15px;
+            height: 15px;
+            border-top: 2px solid var(--accent-lime);
+            border-left: 2px solid var(--accent-lime);
+            opacity: 0.5;
+        }
+
+        .contact-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            border-bottom: 2px solid var(--accent-lime);
+            border-right: 2px solid var(--accent-lime);
+            opacity: 0.5;
+        }
+
+        .contact-card__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: var(--space-sm);
+        }
+
+        .contact-card__type {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-lime);
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .contact-card__status {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-lime);
+            border-radius: 50%;
+            box-shadow: 0 0 5px var(--accent-lime);
+            animation: blink 2s infinite;
+        }
+
+        .contact-card__title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: var(--space-xs);
+            text-transform: uppercase;
+        }
+
+        .contact-card__link {
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: var(--space-md);
+        }
+
+        .contact-card__note {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+
+        /* 3. TERMINAL FORM */
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--space-2xl);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Terminal Header Strip */
+        .contact-form::before {
+            content: 'SECURE_CONNECTION // ENCRYPTED';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px var(--space-lg);
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: right;
+        }
+
+        .contact-form__title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-lg);
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-lime);
+            opacity: 0.8;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--space-md);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-lime);
+            border-left-width: 4px;
+            background: rgba(200, 255, 0, 0.02);
+            box-shadow: -5px 0 10px rgba(200, 255, 0, 0.05);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Button override */
+        .contact-form .btn {
+            width: 100%;
+            border-radius: 0;
+            font-family: var(--font-display);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .info-page__title {
+                font-size: 2.5rem;
+            }
+
+            .contact-form {
+                padding: var(--space-xl);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="collections.html" class="header__logo">STREETHYPE</a>
+            <nav class="header__nav">
+                <a href="catalog.html" class="header__nav-link">Каталог</a>
+                <a href="collections.html" class="header__nav-link">Коллекции</a>
+                <a href="lookbook.html" class="header__nav-link">Lookbook</a>
+                <a href="certificates.html" class="header__nav-link">Сертификаты</a>
+                <a href="about.html" class="header__nav-link">Инфо</a>
+            </nav>
+            <div class="header__actions">
+                <a href="#" class="header__cart" id="cartBtn">
+                    <div class="header__cart-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 01-8 0" />
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </div>
+                </a>
+                <button class="header__burger" id="menuToggle"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="info-page">
+        <div class="container">
+            <!-- Neon Header -->
+            <div class="info-page__header">
+                <h1 class="info-page__title">Контакты</h1>
+                <p class="info-page__subtitle">СВЯЗЬ_С_ОПЕРАТОРОМ // SYSTEM_READY</p>
+            </div>
+
+            <!-- Tech Contact Cards -->
+            <div class="contacts-grid">
+                <!-- Telegram -->
+                <a href="https://t.me/streethype_support" class="contact-card" target="_blank">
+                    <div class="contact-card__header">
+                        <span class="contact-card__type">MSG.PROTOCOL</span>
+                        <div class="contact-card__status"></div>
+                    </div>
+                    <h3 class="contact-card__title">Telegram</h3>
+                    <div class="contact-card__link">@streethype_support</div>
+                    <p class="contact-card__note">Среднее время ответа: 5 мин</p>
+                </a>
+
+                <!-- Phone -->
+                <a href="tel:+79001234567" class="contact-card">
+                    <div class="contact-card__header">
+                        <span class="contact-card__type">VOICE.LINE</span>
+                        <div class="contact-card__status"></div>
+                    </div>
+                    <h3 class="contact-card__title">Телефон</h3>
+                    <div class="contact-card__link">+7 (900) 123-45-67</div>
+                    <p class="contact-card__note">ПН-ПТ: 09:00 — 19:00</p>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:info@streethype.ru" class="contact-card">
+                    <div class="contact-card__header">
+                        <span class="contact-card__type">MAIL.SERVER</span>
+                        <div class="contact-card__status"></div>
+                    </div>
+                    <h3 class="contact-card__title">Email</h3>
+                    <div class="contact-card__link">info@streethype.ru</div>
+                    <p class="contact-card__note">Отвечаем в течение 24 часов</p>
+                </a>
+            </div>
+
+            <!-- Terminal Form -->
+            <div class="contact-form">
+                <h2 class="contact-form__title">ОТПРАВИТЬ ЗАПРОС</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">USER.NAME</label>
+                        <input type="text" id="name" name="name" required placeholder="Введите ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">USER.EMAIL</label>
+                        <input type="email" id="email" name="email" required placeholder="example@mail.ru">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">DATA.SUBJECT</label>
+                        <input type="text" id="subject" name="subject" placeholder="Тема сообщения">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">DATA.PAYLOAD</label>
+                        <textarea id="message" name="message" required placeholder="Текст сообщения..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary">INITIATE TRANSMISSION</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom" style="padding-top: 0; border-top: none;">
+                <div class="footer__legal">
+                    ИП Иванов Иван Иванович · ИНН 772500000000 · © STREETHYPE 2024-2026
+                </div>
+                <div class="footer__legal-links">
+                    <a href="index.html">Главная</a>
+                    <a href="oferta.html">Оферта</a>
+                    <a href="privacy.html">Конфиденциальность</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            // Cyberpunk style alert/notification could go here
+            alert('TRANSMISSION SUCCESSFUL. DATA UPLOADED.');
+            this.reset();
+        });
+    </script>
+</body>
+
+</html>

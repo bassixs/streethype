@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Доставка и оплата STREETHYPE — способы доставки по России, варианты оплаты, сроки.">
+    <title>LOGISTICS // STREETHYPE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           DELIVERY PAGE STYLES (CYBERPUNK / HUD)
+           ============================================ */
+        .delivery-page {
+            padding: var(--space-3xl) 0;
+            min-height: 80vh;
+        }
+
+        /* 1. NEON HEADER */
+        .delivery-hero {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+            padding: var(--space-2xl) 0;
+            position: relative;
+        }
+
+        .delivery-hero h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: var(--space-md);
+            color: var(--accent-lime);
+            text-shadow:
+                0 0 10px rgba(200, 255, 0, 0.5),
+                0 0 20px rgba(200, 255, 0, 0.3),
+                0 0 40px rgba(200, 255, 0, 0.2);
+            animation: neonGlitch 3s infinite alternate;
+        }
+
+        .delivery-hero p {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            letter-spacing: 2px;
+        }
+
+        @keyframes neonGlitch {
+            0% {
+                text-shadow: 0 0 10px rgba(200, 255, 0, 0.5);
+                transform: translate(0);
+            }
+
+            20% {
+                text-shadow: 2px 0 15px rgba(200, 255, 0, 0.6);
+                transform: translate(-1px, 1px);
+            }
+
+            40% {
+                text-shadow: -2px 0 15px rgba(200, 255, 0, 0.6);
+                transform: translate(1px, -1px);
+            }
+
+            60% {
+                text-shadow: 0 0 10px rgba(200, 255, 0, 0.5);
+                transform: translate(0);
+            }
+
+            100% {
+                text-shadow: 0 0 10px rgba(200, 255, 0, 0.5);
+                transform: translate(0);
+            }
+        }
+
+        /* 2. TRANSPORT MODULES (DELIVERY CARDS) */
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .delivery-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--space-xl);
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .delivery-card:hover {
+            border-color: var(--accent-lime);
+            background: rgba(200, 255, 0, 0.02);
+            box-shadow: 0 0 20px rgba(200, 255, 0, 0.1);
+        }
+
+        .delivery-card__icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        .delivery-card__title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+        }
+
+        .delivery-card__price {
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            color: var(--accent-lime);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .delivery-card__text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .delivery-status {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2px 6px;
+        }
+
+        .delivery-card:hover .delivery-status {
+            color: var(--accent-lime);
+            border-color: var(--accent-lime);
+        }
+
+        /* Tech corners */
+        .delivery-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid var(--accent-lime);
+            border-left: 2px solid var(--accent-lime);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .delivery-card:hover::before {
+            opacity: 1;
+        }
+
+        /* 3. TERMINAL SECTION (PAYMENT) */
+        .terminal-section {
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-3xl);
+            position: relative;
+        }
+
+        .terminal-section::before {
+            content: 'TRANSACTION_TERMINAL // SECURE_LINK';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px var(--space-lg);
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        .payment-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .payment-item__icon {
+            font-size: 1.8rem;
+        }
+
+        .payment-item__name {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        /* 4. IMPORTANT INFO (Typing style) */
+        .info-terminal {
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            border-left: 2px solid var(--accent-lime);
+            padding-left: var(--space-lg);
+        }
+
+        .info-terminal p::before {
+            content: '> ';
+            color: var(--accent-lime);
+        }
+
+        @media (max-width: 768px) {
+            .delivery-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="header__logo">STREETHYPE</a>
+            <nav class="header__nav">
+                <a href="catalog.html" class="header__nav-link">Каталог</a>
+                <a href="collections.html" class="header__nav-link">Коллекции</a>
+                <a href="lookbook.html" class="header__nav-link">Lookbook</a>
+                <a href="certificates.html" class="header__nav-link">Сертификаты</a>
+                <a href="about.html" class="header__nav-link">Инфо</a>
+            </nav>
+            <div class="header__actions">
+                <a href="index.html#cart" class="header__cart">
+                    <div class="header__cart-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 01-8 0" />
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </div>
+                </a>
+                <button class="header__burger" id="menuToggle"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="delivery-page">
+        <div class="container">
+
+            <!-- Hero -->
+            <section class="delivery-hero">
+                <h1>LOGISTICS // NET</h1>
+                <p>GLOBAL_SHIPPING_MODULE_V2.0</p>
+            </section>
+
+            <!-- Delivery Modules -->
+            <section>
+                <div class="delivery-grid">
+                    <!-- CDEK -->
+                    <div class="delivery-card">
+                        <div class="delivery-status">STATUS: ACTIVE</div>
+                        <div class="delivery-card__icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect x="2" y="3" width="20" height="14" rx="2" />
+                                <line x1="8" y1="21" x2="16" y2="21" />
+                                <line x1="12" y1="17" x2="12" y2="21" />
+                                <path d="M7 8h10" />
+                                <path d="M7 12h5" />
+                            </svg>
+                        </div>
+                        <h3 class="delivery-card__title">CDEK</h3>
+                        <div class="delivery-card__price">COST: 350 RUB // TIME: 2-7 DAYS</div>
+                        <p class="delivery-card__text">Доставка до пункта выдачи или курьером до двери. Полное покрытие
+                            территории РФ. Трекинг-номер.</p>
+                    </div>
+
+                    <!-- Yandex -->
+                    <div class="delivery-card">
+                        <div class="delivery-status">STATUS: FAST</div>
+                        <div class="delivery-card__icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                            </svg>
+                        </div>
+                        <h3 class="delivery-card__title">YANDEX_GO</h3>
+                        <div class="delivery-card__price">COST: 199 RUB // TIME: 1-3 DAYS</div>
+                        <p class="delivery-card__text">Экспресс-доставка по Москве и Санкт-Петербургу. Курьерская служба
+                            до двери.</p>
+                    </div>
+
+                    <!-- Post -->
+                    <div class="delivery-card">
+                        <div class="delivery-status">STATUS: ACTIVE</div>
+                        <div class="delivery-card__icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                            </svg>
+                        </div>
+                        <h3 class="delivery-card__title">RUS_POST</h3>
+                        <div class="delivery-card__price">COST: 250 RUB // TIME: 5-14 DAYS</div>
+                        <p class="delivery-card__text">Классическая доставка в любую точку страны. Отслеживание
+                            отправлений.</p>
+                    </div>
+
+                    <!-- Free -->
+                    <div class="delivery-card" style="border-color: var(--accent-lime);">
+                        <div class="delivery-status"
+                            style="color: var(--accent-lime); border-color: var(--accent-lime);">BONUS: UNLOCKED</div>
+                        <div class="delivery-card__icon" style="color: var(--accent-lime);">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="delivery-card__title" style="color: var(--accent-lime);">FREE_SHIP</h3>
+                        <div class="delivery-card__price">ORDER > 5 000 RUB</div>
+                        <p class="delivery-card__text">При заказе от 5 000 ₽ доставка за наш счет любым удобным
+                            способом.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Terminal -->
+            <section class="terminal-section">
+                <h2 class="protocol-title"
+                    style="font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase;">
+                    Payment_Methods</h2>
+                <div class="terminal-grid">
+                    <div class="payment-item">
+                        <div class="payment-item__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect x="2" y="5" width="20" height="14" rx="2" />
+                                <line x1="2" y1="10" x2="22" y2="10" />
+                            </svg>
+                        </div>
+                        <div class="payment-item__name">CARD_TRANSFER</div>
+                    </div>
+                    <div class="payment-item">
+                        <div class="payment-item__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                                <line x1="12" y1="18" x2="12" y2="18" />
+                            </svg>
+                        </div>
+                        <div class="payment-item__name">SBP_SYSTEM</div>
+                    </div>
+                    <div class="payment-item">
+                        <div class="payment-item__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path
+                                    d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12 0-.83 0-1.64-.19-2.42-3.44.75-5.81 3.75-5.81 7.42 0 3.75 2.56 6.8 6.09 7.4.5 1.76 1.15 3.51 1.91 5.26-1.54 2.68-4.22 4.34-7.22 4.34-2.85 0-5.4-1.57-6.88-4.14C9.5 27 8.5 26 7.5 26c-1.25 0-2.5 1.06-4 1.06-2.85 0-5.4-1.57-6.88-4.14L-5.5 19c-.83-1.44-1.5-3.08-1.5-5 0-5.52 4.48-10 10-10 .83 0 1.64.12 2.41.35 1.54-1.43 3.6-2.35 5.86-2.35 1.41 0 2.73.36 3.91.99C13.83 4.22 12.5 6 12.5 8c0 3.1 2.5 5.71 5.58 6.74-.32 2.64-1.47 5.04-3.23 6.94-.97-1.04-2.33-1.68-3.85-1.68z" />
+                                <path d="M15.5 2C15.5 2 15 2 15 2c0-1.1.9-2 2-2s2 .9 2 2" />
+                                <!-- Simplified Apple-like shape for pure CSS/SVG context -->
+                                <path
+                                    d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </div>
+                        <div class="payment-item__name">PAY_PASS</div>
+                    </div>
+                    <div class="payment-item">
+                        <div class="payment-item__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                                <line x1="12" y1="18" x2="12" y2="22" />
+                                <line x1="12" y1="2" x2="12" y2="6" />
+                            </svg>
+                        </div>
+                        <div class="payment-item__name">DIGITAL_MONEY</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Info Terminal -->
+            <section class="info-terminal">
+                <p>SYSTEM_NOTE: Заказы обрабатываются оператором в течение 1-2 рабочих дней.</p>
+                <p>TRACKING: После отправки вы получите уникальный идентификатор для отслеживания.</p>
+                <p>CHECK: При получении проверяйте целостность защитной упаковки.</p>
+                <p>SUPPORT: Возникли вопросы? Пишите в канал связи <a href="https://t.me/streethype_support"
+                        style="color: var(--accent-lime); text-decoration: none;">[TELEGRAM_LINK]</a></p>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer (Minimal) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom" style="padding-top: 0; border-top: none;">
+                <div class="footer__legal">© STREETHYPE 2024-2026</div>
+                <div class="footer__legal-links">
+                    <a href="index.html">Главная</a>
+                    <a href="returns.html">Возврат</a> <!-- Kept returns link as it was on this page -->
+                    <a href="contacts.html">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Messenger Buttons -->
+    <div class="messenger-buttons">
+        <a href="https://t.me/streethype_support" class="messenger-btn telegram" title="Telegram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
+        </a>
+        <a href="https://wa.me/78001234567" class="messenger-btn whatsapp" title="WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+            </svg>
+        </a>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

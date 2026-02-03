@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="О бренде STREETHYPE — история, философия и ценности. Узнайте, что делает нас уникальными.">
+    <title>О бренде — STREETHYPE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .info-page {
+            padding: var(--space-3xl) 0;
+            min-height: 70vh;
+        }
+
+        .info-page__header {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+            padding: var(--space-2xl) 0;
+            position: relative;
+        }
+
+        .info-page__title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: var(--space-md);
+            color: var(--accent-lime);
+            text-shadow:
+                0 0 10px rgba(200, 255, 0, 0.5),
+                0 0 20px rgba(200, 255, 0, 0.3),
+                0 0 40px rgba(200, 255, 0, 0.2),
+                0 0 80px rgba(200, 255, 0, 0.1);
+            animation: neonPulse 3s infinite alternate;
+        }
+
+        @keyframes neonPulse {
+            from {
+                text-shadow:
+                    0 0 10px rgba(200, 255, 0, 0.5),
+                    0 0 20px rgba(200, 255, 0, 0.3),
+                    0 0 40px rgba(200, 255, 0, 0.2);
+            }
+
+            to {
+                text-shadow:
+                    0 0 15px rgba(200, 255, 0, 0.6),
+                    0 0 30px rgba(200, 255, 0, 0.4),
+                    0 0 50px rgba(200, 255, 0, 0.3),
+                    0 0 90px rgba(200, 255, 0, 0.2);
+            }
+        }
+
+        .info-page__subtitle {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           HUD/TECH CARDS SECTION
+           ============================================ */
+        .tech-cards-section {
+            margin-bottom: var(--space-3xl);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xl);
+        }
+
+        .tech-card {
+            position: relative;
+            height: 450px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000;
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+
+        .tech-card:hover {
+            border-color: var(--accent-lime);
+            box-shadow: 0 0 20px rgba(200, 255, 0, 0.15);
+        }
+
+        /* Background Image */
+        .tech-card__bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        .tech-card:hover .tech-card__bg {
+            transform: scale(1.05);
+            opacity: 0.4;
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        /* HUD Overlay Interface */
+        .tech-card__interface {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            padding: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+        }
+
+        /* Decorative Elements */
+        .tech-decor-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: var(--accent-lime);
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        .tech-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .tech-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--accent-lime);
+            border-radius: 50%;
+        }
+
+        .tech-card:hover .tech-dot:nth-child(1) {
+            animation: blink 1s infinite;
+        }
+
+        .tech-card:hover .tech-dot:nth-child(2) {
+            animation: blink 1s infinite 0.2s;
+        }
+
+        .tech-card:hover .tech-dot:nth-child(3) {
+            animation: blink 1s infinite 0.4s;
+        }
+
+        /* Content Area */
+        .tech-content {
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .tech-card:hover .tech-content {
+            transform: translateY(0);
+        }
+
+        .tech-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: var(--space-xs);
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-title::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 2rem;
+            background: var(--accent-lime);
+        }
+
+        .tech-subtitle {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-lime);
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(200, 255, 0, 0.3);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .tech-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .tech-card:hover .tech-description {
+            max-height: 150px;
+            opacity: 1;
+            margin-top: var(--space-sm);
+        }
+
+        /* Fake UI Elements */
+        .tech-ui-bar {
+            height: 2px;
+            width: 0%;
+            background: var(--accent-lime);
+            margin-top: var(--space-md);
+            transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .tech-card:hover .tech-ui-bar {
+            width: 100%;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tech-grid .tech-card:last-child {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid .tech-card:last-child {
+                grid-column: span 1;
+            }
+
+            .tech-card {
+                height: 380px;
+            }
+
+            /* Show content by default on mobile */
+            .tech-description {
+                max-height: none;
+                opacity: 1;
+                margin-top: var(--space-sm);
+            }
+
+            .tech-ui-bar {
+                width: 100%;
+            }
+
+            .tech-content {
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================
+           TECH SPECS SECTION (FEATURES)
+           ============================================ */
+        .tech-specs-section {
+            margin-top: var(--space-3xl);
+            padding: var(--space-2xl) 0;
+        }
+
+        .tech-section-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-2xl);
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .tech-section-title .highlight {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .tech-specs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .tech-spec-item {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            padding: var(--space-xl) var(--space-lg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .tech-spec-item:hover {
+            background: rgba(200, 255, 0, 0.05);
+            border-color: rgba(200, 255, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Technical Corners */
+        .tech-spec-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            border-top: 1px solid var(--accent-lime);
+            border-left: 1px solid var(--accent-lime);
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .tech-spec-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 10px;
+            height: 10px;
+            border-bottom: 1px solid var(--accent-lime);
+            border-right: 1px solid var(--accent-lime);
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .tech-spec-item:hover::before,
+        .tech-spec-item:hover::after {
+            opacity: 1;
+            width: 20px;
+            height: 20px;
+        }
+
+        .spec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: var(--space-sm);
+        }
+
+        .spec-num {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--accent-lime);
+            opacity: 0.7;
+        }
+
+        .spec-id {
+            font-family: 'Courier New', monospace;
+            font-size: 0.65rem;
+            color: var(--accent-lime);
+            opacity: 0.6;
+            letter-spacing: 1px;
+        }
+
+        .spec-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+        }
+
+        .spec-desc {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .tech-specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tech-specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="header__logo">STREETHYPE</a>
+            <nav class="header__nav">
+                <a href="catalog.html" class="header__nav-link">Каталог</a>
+                <a href="collections.html" class="header__nav-link">Коллекции</a>
+                <a href="lookbook.html" class="header__nav-link">Lookbook</a>
+                <a href="certificates.html" class="header__nav-link">Сертификаты</a>
+                <a href="about.html" class="header__nav-link" style="color: var(--accent-lime);">Инфо</a>
+            </nav>
+            <div class="header__actions">
+                <a href="index.html#cart" class="header__cart">
+                    <div class="header__cart-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 01-8 0" />
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </div>
+                </a>
+                <button class="header__burger" id="menuToggle"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="info-page">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="info-page__header">
+                <h1 class="info-page__title">О бренде</h1>
+                <p class="info-page__subtitle">STREETHYPE — это не просто одежда. Это способ самовыражения для тех, кто
+                    живёт улицей.</p>
+            </div>
+
+            <!-- Tech/HUD Cards Section -->
+            <section class="tech-cards-section">
+                <div class="tech-grid">
+                    <!-- Card 1: История -->
+                    <div class="tech-card">
+                        <div class="tech-card__bg" style="background-image: url('images/about/history.png');"></div>
+                        <div class="tech-card__interface">
+                            <div class="tech-decor-top">
+                                <span>SYS.LOG.01</span>
+                                <div class="tech-dots">
+                                    <div class="tech-dot"></div>
+                                    <div class="tech-dot"></div>
+                                    <div class="tech-dot"></div>
+                                </div>
+                            </div>
+                            <div class="tech-content">
+                                <div class="tech-subtitle">EST. 2020</div>
+                                <h2 class="tech-title">ИСТОРИЯ</h2>
+                                <div class="tech-description">
+                                    STREETHYPE родился из духа уличной культуры. Мы прошли путь от локального комьюнити
+                                    до бренда, объединяющего тысячи людей.
+                                </div>
+                                <div class="tech-ui-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Философия -->
+                    <div class="tech-card">
+                        <div class="tech-card__bg" style="background-image: url('images/about/philosophy.png');"></div>
+                        <div class="tech-card__interface">
+                            <div class="tech-decor-top">
+                                <span>SYS.LOG.02</span>
+                                <div class="tech-dots">
+                                    <div class="tech-dot"></div>
+                                    <div class="tech-dot"></div>
+                                    <div class="tech-dot"></div>
+                                </div>
+                            </div>
+                            <div class="tech-content">
+                                <div class="tech-subtitle">CORE.VALUES</div>
+                                <h2 class="tech-title">ФИЛОСОФИЯ</h2>
+                                <div class="tech-description">
+                                    Одежда как продолжение личности. Свобода быть собой. Мы создаем не просто вещи, а
+                                    инструменты самовыражения.
+                                </div>
+                                <div class="tech-ui-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Ценности -->
+                    <div class="tech-card">
+                        <div class="tech-card__bg" style="background-image: url('images/about/values.png');"></div>
+                        <div class="tech-card__interface">
+                            <div class="tech-decor-top">
+                                <span>SYS.LOG.03</span>
+                                <div class="tech-dots">
+                                    <div class="tech-dot"></div>
+                                    <div class="tech-dot"></div>
+                                    <div class="tech-dot"></div>
+                                </div>
+                            </div>
+                            <div class="tech-content">
+                                <div class="tech-subtitle">QUALITY.CONTROL</div>
+                                <h2 class="tech-title">ЦЕННОСТИ</h2>
+                                <div class="tech-description">
+                                    Бескомпромиссное качество, уникальные принты и экологичное производство. Мы отвечаем
+                                    за каждый шов.
+                                </div>
+                                <div class="tech-ui-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Specs Section (Features) -->
+            <section class="tech-specs-section">
+                <h2 class="tech-section-title">SYSTEM_SPECS // <span class="highlight">ОСОБЕННОСТИ</span></h2>
+                <div class="tech-specs-grid">
+                    <!-- Item 01 -->
+                    <div class="tech-spec-item">
+                        <div class="spec-header">
+                            <span class="spec-num">01</span>
+                            <span class="spec-id">DROP.LIMIT</span>
+                        </div>
+                        <h3 class="spec-title">Лимитированные дропы</h3>
+                        <p class="spec-desc">Ограниченные тиражи коллекций. Sold out = Sold out.</p>
+                    </div>
+
+                    <!-- Item 02 -->
+                    <div class="tech-spec-item">
+                        <div class="spec-header">
+                            <span class="spec-num">02</span>
+                            <span class="spec-id">LOCAL.MFG</span>
+                        </div>
+                        <h3 class="spec-title">Сделано в РФ</h3>
+                        <p class="spec-desc">Собственное производство в России. Контроль каждого этапа.</p>
+                    </div>
+
+                    <!-- Item 03 -->
+                    <div class="tech-spec-item">
+                        <div class="spec-header">
+                            <span class="spec-num">03</span>
+                            <span class="spec-id">ART.DEPT</span>
+                        </div>
+                        <h3 class="spec-title">Авторские принты</h3>
+                        <p class="spec-desc">Уникальные дизайны от нашей команды художников.</p>
+                    </div>
+
+                    <!-- Item 04 -->
+                    <div class="tech-spec-item">
+                        <div class="spec-header">
+                            <span class="spec-num">04</span>
+                            <span class="spec-id">MAT.QLTY</span>
+                        </div>
+                        <h3 class="spec-title">Материалы</h3>
+                        <p class="spec-desc">Премиальный хлопок высокой плотности, фурнитура YKK.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom" style="padding-top: 0; border-top: none;">
+                <div class="footer__legal">© STREETHYPE 2024-2026</div>
+                <div class="footer__legal-links">
+                    <a href="index.html">Главная</a>
+                    <a href="delivery.html">Доставка</a>
+                    <a href="contacts.html">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Flip card tap support for mobile
+        document.querySelectorAll('.flip-card').forEach(card => {
+            card.addEventListener('click', function (e) {
+                // Only use tap toggle on touch devices
+                if (window.matchMedia('(hover: none)').matches) {
+                    this.classList.toggle('flipped');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

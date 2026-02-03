@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUAL_ARCHIVE // STREETHYPE</title>
+    <meta name="description" content="Lookbook STREETHYPE — визуальный архив уличной моды">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           LOOKBOOK PAGE STYLES (CYBERPUNK / HUD)
+           ============================================ */
+        .lookbook-page {
+            padding: var(--space-3xl) 0;
+            min-height: 80vh;
+        }
+
+        /* 1. NEON HEADER */
+        .lookbook-hero {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+            padding: var(--space-2xl) 0;
+            position: relative;
+        }
+
+        .lookbook-hero h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: var(--space-md);
+            color: var(--accent-lime);
+            text-shadow:
+                0 0 10px rgba(200, 255, 0, 0.5),
+                0 0 20px rgba(200, 255, 0, 0.3),
+                0 0 40px rgba(200, 255, 0, 0.2);
+            animation: neonGlitch 3s infinite alternate;
+        }
+
+        .lookbook-hero p {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            letter-spacing: 2px;
+        }
+
+        @keyframes neonGlitch {
+            0% {
+                text-shadow: 0 0 10px rgba(200, 255, 0, 0.5);
+                transform: translate(0);
+            }
+
+            20% {
+                text-shadow: 2px 0 15px rgba(200, 255, 0, 0.6);
+                transform: translate(-1px, 1px);
+            }
+
+            40% {
+                text-shadow: -2px 0 15px rgba(200, 255, 0, 0.6);
+                transform: translate(1px, -1px);
+            }
+
+            60% {
+                text-shadow: 0 0 10px rgba(200, 255, 0, 0.5);
+                transform: translate(0);
+            }
+
+            100% {
+                text-shadow: 0 0 10px rgba(200, 255, 0, 0.5);
+                transform: translate(0);
+            }
+        }
+
+        /* 2. VISUAL ARCHIVE GRID */
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .file-card {
+            position: relative;
+            height: 400px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .file-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        .file-card:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(1);
+        }
+
+        /* HUD Overlay */
+        .file-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--space-lg);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .file-card:hover .file-overlay {
+            opacity: 1;
+        }
+
+        .file-meta {
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            color: var(--accent-lime);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(200, 255, 0, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .file-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: var(--space-xs);
+            text-transform: uppercase;
+        }
+
+        .file-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: var(--space-md);
+        }
+
+        .file-btn {
+            align-self: flex-start;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 5px 15px;
+            transition: all 0.3s;
+        }
+
+        .file-btn:hover {
+            background: var(--accent-lime);
+            border-color: var(--accent-lime);
+            color: #000;
+        }
+
+        /* Scanning Effect */
+        .file-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-lime);
+            box-shadow: 0 0 10px var(--accent-lime);
+            opacity: 0;
+            z-index: 2;
+            transition: top 3s linear;
+        }
+
+        .file-card:hover::before {
+            opacity: 1;
+            animation: scanLine 2s linear infinite;
+        }
+
+        @keyframes scanLine {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            95% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* Tech corners */
+        .file-card::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            border-top: 2px solid var(--accent-lime);
+            border-right: 2px solid var(--accent-lime);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .file-card:hover::after {
+            opacity: 1;
+        }
+
+        /* 3. CTA UPLOAD SECTION */
+        .upload-section {
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--space-3xl) var(--space-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(255, 255, 255, 0.02) 2px);
+            pointer-events: none;
+        }
+
+        .upload-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+        }
+
+        .upload-text {
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            border: 1px solid var(--accent-lime);
+            color: var(--accent-lime);
+            font-family: var(--font-display);
+            font-weight: 700;
+            padding: 15px 30px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: var(--accent-lime);
+            color: #000;
+            box-shadow: 0 0 20px var(--accent-lime);
+        }
+
+        @media (max-width: 768px) {
+            .lookbook-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="header__logo">STREETHYPE</a>
+            <nav class="header__nav">
+                <a href="catalog.html" class="header__nav-link">Каталог</a>
+                <a href="collections.html" class="header__nav-link">Коллекции</a>
+                <a href="lookbook.html" class="header__nav-link" style="color: var(--accent-lime);">Lookbook</a>
+                <a href="certificates.html" class="header__nav-link">Сертификаты</a>
+                <a href="about.html" class="header__nav-link">Инфо</a>
+            </nav>
+            <div class="header__actions">
+                <a href="index.html#cart" class="header__cart">
+                    <div class="header__cart-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 01-8 0" />
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </div>
+                </a>
+                <button class="header__burger" id="menuToggle"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="lookbook-page">
+        <div class="container">
+
+            <!-- Hero -->
+            <section class="lookbook-hero">
+                <h1>VISUAL_ARCHIVE</h1>
+                <p>SENSOR_DATA // SEASON_2025</p>
+            </section>
+
+            <!-- Gallery Grid -->
+            <section class="archive-grid">
+
+                <!-- Item 1 -->
+                <div class="file-card">
+                    <img src="images/lookbook-new-1.png" alt="Street Culture Look">
+                    <div class="file-overlay">
+                        <div class="file-meta">
+                            <span>FILE_ID: 001</span>
+                            <span>TYPE: URBAN</span>
+                        </div>
+                        <h3 class="file-title">Графика улиц</h3>
+                        <p class="file-desc">Худи с японским принтом + карго</p>
+                        <a href="catalog.html" class="file-btn">ACCESS_DATA</a>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="file-card">
+                    <img src="images/lookbook-2.png" alt="Lime Style">
+                    <div class="file-overlay">
+                        <div class="file-meta">
+                            <span>FILE_ID: 002</span>
+                            <span>TYPE: NEON</span>
+                        </div>
+                        <h3 class="file-title">Лаймовый акцент</h3>
+                        <p class="file-desc">Пуховик + карго + берет</p>
+                        <a href="catalog.html" class="file-btn">ACCESS_DATA</a>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="file-card">
+                    <img src="images/hero_slide_1_1769257924734.png" alt="Streetwear Look 1">
+                    <div class="file-overlay">
+                        <div class="file-meta">
+                            <span>FILE_ID: 003</span>
+                            <span>TYPE: BASIC</span>
+                        </div>
+                        <h3 class="file-title">Базовый чёрный</h3>
+                        <p class="file-desc">Оверсайз футболка + джинсы</p>
+                        <a href="catalog.html" class="file-btn">ACCESS_DATA</a>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="file-card">
+                    <img src="images/hero_slide_2_1769257938762.png" alt="Streetwear Look 2">
+                    <div class="file-overlay">
+                        <div class="file-meta">
+                            <span>FILE_ID: 004</span>
+                            <span>TYPE: STATEMENT</span>
+                        </div>
+                        <h3 class="file-title">Яркий акцент</h3>
+                        <p class="file-desc">Лонгслив с принтом + карго</p>
+                        <a href="catalog.html" class="file-btn">ACCESS_DATA</a>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="file-card">
+                    <img src="images/hero_slide_3_1769257952676.png" alt="Streetwear Look 3">
+                    <div class="file-overlay">
+                        <div class="file-meta">
+                            <span>FILE_ID: 005</span>
+                            <span>TYPE: MINIMAL</span>
+                        </div>
+                        <h3 class="file-title">Минимализм</h3>
+                        <p class="file-desc">Базовые слои + аксессуары</p>
+                        <a href="catalog.html" class="file-btn">ACCESS_DATA</a>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="file-card">
+                    <img src="images/product_tshirt_1_1769257974154.png" alt="Abstract Tee">
+                    <div class="file-overlay">
+                        <div class="file-meta">
+                            <span>FILE_ID: 006</span>
+                            <span>TYPE: DROP</span>
+                        </div>
+                        <h3 class="file-title">Abstract Graphics</h3>
+                        <p class="file-desc">Футболка «Abstract» — 3 200 ₽</p>
+                        <a href="catalog.html" class="file-btn">ACCESS_DATA</a>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- CTA Section -->
+            <section class="upload-section">
+                <h2 class="upload-title">JOIN_THE_NETWORK</h2>
+                <div class="upload-text">
+                    <p>Загрузите свои данные в сеть. Отмечайте нас в Instagram с хэштегом #STREETHYPE — лучшие кадры
+                        будут добавлены в архив.</p>
+                </div>
+                <a href="https://instagram.com" target="_blank" class="upload-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    UPLOAD_YOUR_DATA
+                </a>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer (Minimal) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom" style="padding-top: 0; border-top: none;">
+                <div class="footer__legal">© STREETHYPE 2024-2026</div>
+                <div class="footer__legal-links">
+                    <a href="index.html">Главная</a>
+                    <a href="delivery.html">Доставка</a>
+                    <a href="contacts.html">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Messenger Buttons -->
+    <div class="messenger-buttons">
+        <a href="https://t.me/streethype_support" class="messenger-btn telegram" title="Telegram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
+        </a>
+        <a href="https://wa.me/78001234567" class="messenger-btn whatsapp" title="WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+            </svg>
+        </a>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

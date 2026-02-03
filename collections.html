@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Коллекции STREETHYPE — Urban Ops, Neon Vanguard, Base Layer. Лимитированные дропы и базовая одежда.">
+    <title>COLLECTIONS // STREETHYPE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           COLLECTIONS PAGE STYLES (CYBERPUNK / HUD)
+           ============================================ */
+        .collections-page {
+            padding: var(--space-3xl) 0;
+            min-height: 80vh;
+        }
+
+        /* HERO HEADER */
+        .collections-hero {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+            position: relative;
+        }
+
+        .collections-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #fff;
+            margin-bottom: var(--space-sm);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .collections-hero h1 span {
+            color: var(--accent-lime);
+        }
+
+        .collections-hero p {
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        /* COLLECTIONS GRID */
+        .collections-grid {
+            display: grid;
+            gap: var(--space-2xl);
+            margin-bottom: var(--space-3xl);
+        }
+
+        /* COLLECTION CARD */
+        .collection-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background: #000;
+        }
+
+        .collection-card__bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: all 0.5s ease;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        .collection-card:hover .collection-card__bg {
+            opacity: 0.8;
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(1.1);
+        }
+
+        /* HUD OVERLAY */
+        .collection-card__hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+
+        .collection-card:hover .collection-card__hud {
+            border-color: var(--accent-lime);
+            box-shadow: inset 0 0 30px rgba(200, 255, 0, 0.1);
+        }
+
+        /* Create corners */
+        .collection-card__hud::before,
+        .collection-card__hud::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .collection-card:hover .collection-card__hud::before {
+            top: 20px;
+            left: 20px;
+            border-top-color: var(--accent-lime);
+            border-left-color: var(--accent-lime);
+        }
+
+        .collection-card:hover .collection-card__hud::after {
+            bottom: 20px;
+            right: 20px;
+            border-bottom-color: var(--accent-lime);
+            border-right-color: var(--accent-lime);
+        }
+
+        /* CONTENT */
+        .collection-card__content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: var(--space-xl);
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .collection-card:hover .collection-card__content {
+            transform: translateY(0);
+            border-color: var(--accent-lime);
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .collection-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .collection-subtitle {
+            display: block;
+            margin-top: var(--space-sm);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-lime);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s 0.1s;
+        }
+
+        .collection-card:hover .collection-subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* SCAN LINE ANIMATION */
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-lime);
+            opacity: 0;
+            box-shadow: 0 0 10px var(--accent-lime);
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .collection-card:hover .scan-line {
+            animation: scanMove 2s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes scanMove {
+            0% {
+                top: 0%;
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            95% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .collection-card {
+                height: 300px;
+            }
+
+            .collection-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="collections.html" class="header__logo">STREETHYPE</a>
+            <nav class="header__nav">
+                <a href="catalog.html" class="header__nav-link">Каталог</a>
+                <a href="collections.html" class="header__nav-link" style="color: var(--accent-lime);">Коллекции</a>
+                <a href="lookbook.html" class="header__nav-link">Lookbook</a>
+                <a href="certificates.html" class="header__nav-link">Сертификаты</a>
+                <a href="about.html" class="header__nav-link">Инфо</a>
+            </nav>
+            <div class="header__actions">
+                <a href="#" class="header__cart" id="cartBtn">
+                    <div class="header__cart-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 01-8 0" />
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </div>
+                </a>
+                <button class="header__burger" id="menuToggle"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav__close" id="mobileNavClose">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="mobile-nav__links">
+            <a href="catalog.html" class="mobile-nav__link">Каталог</a>
+            <a href="collections.html" class="mobile-nav__link">Коллекции</a>
+            <a href="lookbook.html" class="mobile-nav__link">Lookbook</a>
+            <a href="certificates.html" class="mobile-nav__link">Сертификаты</a>
+            <a href="about.html" class="mobile-nav__link">О бренде</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="collections-page">
+        <div class="container">
+
+            <!-- Hero -->
+            <section class="collections-hero">
+                <h1>ARCHIVE_<span>ACCESS</span></h1>
+                <p>SELECT_DATA_STREAM // SYSTEM_READY</p>
+            </section>
+
+            <!-- Collections Grid -->
+            <div class="collections-grid">
+
+                <!-- Collection 1: URBAN OPS -->
+                <a href="catalog.html?collection=urban" class="collection-card">
+                    <div class="scan-line"></div>
+                    <div class="collection-card__hud"></div>
+                    <img src="images/lookbook-new-1.png" alt="Urban Operations" class="collection-card__bg">
+                    <div class="collection-card__content">
+                        <h2 class="collection-title">URBAN_OPS</h2>
+                        <span class="collection-subtitle">>> ACCESS TECHWEAR DATA</span>
+                    </div>
+                </a>
+
+                <!-- Collection 2: NEON VANGUARD -->
+                <a href="catalog.html?collection=limited" class="collection-card">
+                    <div class="scan-line"></div>
+                    <div class="collection-card__hud"></div>
+                    <img src="images/hero_slide_2_1769257938762.png" alt="Neon Vanguard" class="collection-card__bg">
+                    <div class="collection-card__content">
+                        <h2 class="collection-title">NEON_VANGUARD</h2>
+                        <span class="collection-subtitle">>> ACCESS LIMITED DROPS</span>
+                    </div>
+                </a>
+
+                <!-- Collection 3: BASE LAYER -->
+                <a href="catalog.html?collection=basic" class="collection-card">
+                    <div class="scan-line"></div>
+                    <div class="collection-card__hud"></div>
+                    <img src="images/hero_slide_1_1769257924734.png" alt="Base Layer" class="collection-card__bg">
+                    <div class="collection-card__content">
+                        <h2 class="collection-title">BASE_LAYER</h2>
+                        <span class="collection-subtitle">>> ACCESS ESSENTIALS</span>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom" style="padding-top: 0; border-top: none;">
+                <div class="footer__legal">© STREETHYPE 2024-2026</div>
+                <div class="footer__legal-links">
+                    <a href="index.html">Главная</a>
+                    <a href="catalog.html">Каталог</a>
+                    <a href="contacts.html">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

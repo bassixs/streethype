@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FAQ STREETHYPE — ответы на часто задаваемые вопросы о заказах, доставке, оплате.">
+    <title>FAQ — STREETHYPE</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .info-page {
+            padding: var(--space-3xl) 0;
+            min-height: 70vh;
+        }
+
+        .info-page__header {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+        }
+
+        .info-page__title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+        }
+
+        .info-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-md);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .faq-question:hover {
+            color: var(--accent-lime);
+        }
+
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            transition: transform var(--transition-normal);
+            flex-shrink: 0;
+            margin-left: var(--space-md);
+        }
+
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 var(--space-xl) var(--space-xl);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-category {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: var(--space-2xl) 0 var(--space-lg);
+            color: var(--accent-lime);
+        }
+
+        .faq-category:first-of-type {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="header__logo">STREETHYPE</a>
+            <nav class="header__nav">
+                <a href="catalog.html" class="header__nav-link">Каталог</a>
+                <a href="about.html" class="header__nav-link">Инфо</a>
+            </nav>
+            <div class="header__actions">
+                <a href="index.html#cart" class="header__cart">
+                    <div class="header__cart-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                        </svg>
+                        <span class="header__cart-count" id="cartCount">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="info-page">
+        <div class="container">
+            <div class="info-page__header">
+                <h1 class="info-page__title">Частые вопросы</h1>
+            </div>
+
+            <div class="info-content">
+                <h2 class="faq-category">Заказ и оплата</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Как оформить заказ?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        Добавьте товары в корзину, перейдите к оформлению, укажите контактные данные и адрес доставки.
+                        После оплаты вы получите подтверждение на email.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Какие способы оплаты доступны?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        Мы принимаем банковские карты (Visa, MasterCard, Мир), оплату через СБП, Apple Pay и ЮMoney. Все
+                        платежи защищены.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Можно ли оплатить при получении?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        К сожалению, наложенный платёж недоступен. Все заказы оплачиваются онлайн при оформлении.
+                    </div>
+                </div>
+
+                <h2 class="faq-category">Доставка</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Сколько стоит доставка?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        Стоимость доставки зависит от выбранного способа и региона. При заказе от 5 000 ₽ доставка
+                        бесплатная. Подробнее на странице «Доставка и оплата».
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Как отследить заказ?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        После отправки заказа мы пришлём вам трек-номер на email. По нему можно отследить посылку на
+                        сайте транспортной компании.
+                    </div>
+                </div>
+
+                <h2 class="faq-category">Товары</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Как подобрать размер?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        На странице каждого товара есть размерная сетка с замерами. Если сомневаетесь — напишите нам,
+                        поможем подобрать!
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Как ухаживать за одеждой?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        Рекомендуем стирку при 30°C, вывернув изделие наизнанку. Не используйте отбеливатели. Гладить с
+                        изнаночной стороны. Подробные рекомендации — на бирке товара.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Товар закончился, будет ли повтор?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        Некоторые позиции лимитированные и больше не производятся. Подпишитесь на рассылку, чтобы не
+                        пропустить новые дропы!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom" style="padding-top: 0; border-top: none;">
+                <div class="footer__legal">© STREETHYPE 2024-2026</div>
+                <div class="footer__legal-links">
+                    <a href="index.html">Главная</a>
+                    <a href="contacts.html">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
